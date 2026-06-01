@@ -70,8 +70,9 @@ p{margin:0 0 10px}
 .card-body p{color:#cdd7e3}
 .ref{font-size:.85rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px;margin-top:12px}
 
-.formula{font-size:clamp(1.1rem,2.4vw,1.7rem);text-align:center;background:var(--bg);
-  border:1px solid var(--line);border-radius:14px;padding:22px;margin:0 0 30px;font-weight:600;color:#fff}
+.formula{font-size:clamp(.78rem,1.9vw,1.2rem);text-align:center;background:var(--bg);
+  border:1px solid var(--line);border-radius:14px;padding:18px 14px;margin:0 0 30px;font-weight:600;color:#fff;
+  white-space:nowrap;overflow-x:auto}
 .formula sub{font-size:.62em;color:var(--accent)}
 .finalfig{margin:0 0 28px}
 .finalfig img{width:100%;border-radius:12px;background:#fff;border:1px solid var(--line)}
@@ -79,16 +80,18 @@ p{margin:0 0 10px}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
 .two-col img{width:100%;border-radius:10px;background:#fff}
 
-/* MAPS */
-.map{width:100%;height:70vh;min-height:460px;margin-top:8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+/* MAPS — 가운데 정렬된 가로 직사각형 */
+.map{height:480px;width:100%;background:#0b1d2a}
+#map-context{max-width:1040px;margin:14px auto;border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .map-toggles{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:6px}
 .map-toggles label{display:flex;align-items:center;gap:7px;color:#cdd7e3;font-size:.95rem;cursor:pointer}
 .sw{width:16px;height:16px;border-radius:4px;display:inline-block}
 .sw.pop{background:#f06b22}.sw.seis{background:#d90f8c}.sw.water{background:#1f8cff}
 .sw.plant{background:#ffd400;border-radius:50%}
 
-.map-detail-grid{display:grid;grid-template-columns:1fr 360px;gap:0}
-.detail{background:var(--bg);border-left:1px solid var(--line);padding:22px;height:70vh;min-height:460px;overflow:auto}
+.map-detail-grid{display:grid;grid-template-columns:1fr 340px;gap:0;max-width:1100px;margin:14px auto;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.detail{background:var(--bg);border-left:1px solid var(--line);padding:22px;height:480px;overflow:auto}
 .detail .ph{color:var(--muted);margin-top:40px;text-align:center}
 .detail h3{margin-top:0}
 .detail .dname{font-size:1.35rem;font-weight:800;color:#fff;margin-bottom:2px}
@@ -128,6 +131,14 @@ footer{padding:40px 24px;text-align:center;color:var(--muted);border-top:1px sol
 @media(max-width:820px){
   .card,.two-col,.map-detail-grid{grid-template-columns:1fr}
   .detail{height:auto;border-left:none;border-top:1px solid var(--line)}
-  .map{height:60vh}
+  .map{height:420px}
 }
 .leaflet-popup-content{font-family:'Noto Sans KR',sans-serif}
+
+/* 차트 이미지 라이트박스(클릭 시 크게) */
+.card img,figure.wide img,.figrow img{cursor:zoom-in}
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;
+  z-index:2000;padding:24px;cursor:zoom-out}
+#lightbox.open{display:flex}
+#lightbox img{max-width:96vw;max-height:94vh;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,.6);background:#fff}
+#lightbox .x{position:fixed;top:14px;right:20px;color:#fff;font-size:2rem;font-weight:700;cursor:pointer;line-height:1}

@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=6" />
+<link rel="stylesheet" href="css/style.css?v=7" />
 </head>
 <body>
 <div id="progress"></div>
@@ -42,11 +42,11 @@
 <section class="block" id="s-q">
   <div class="wrap reveal narrow">
     <span class="kicker">여는 글</span>
-    <h2>연구의 질문</h2>
+    <h2>프로젝트의 질문</h2>
     <p>원자력 발전소는 임의의 장소에 건설할 수 없다. 지진이 잦은 단층, 냉각수가 없는 내륙, 인구가 밀집한 도심,
        침수에 취약한 저지대, 분화 가능성이 있는 화산은 모두 회피해야 할 조건이다. 그렇다면 실제로 가동 중인
        원전들은 과연 그러한 ‘이상적인 자리’에 위치하는가?</p>
-    <p>본 연구는 이 물음을 두 단계로 검증한다. 첫째, 다섯 가지 안전·경제 요소로 전 세계 모든 지점의 입지 적합도를
+    <p>이 프로젝트는 이 물음을 두 단계로 검증한다. 첫째, 다섯 가지 안전·경제 요소로 전 세계 모든 지점의 입지 적합도를
        점수화하고 각 원전이 실제로 몇 점의 토지 위에 서 있는지를 계산한다. 둘째, 그 점수가 무작위가 아니라 해당
        국가의 <b>정치체제와 건설 시기</b>에 따라 체계적으로 갈린다는 사실을 보인다.</p>
     <div class="hyp">
@@ -137,7 +137,7 @@
       S<sub>최종</sub> = 0.28·지진 + 0.22·수원 + 0.22·인구 + 0.16·홍수 + 0.12·화산
     </div>
     <p>안전을 가장 중요하게 보아 지진에 0.28, 수원과 인구에 각 0.22, 홍수에 0.16, 화산에 0.12의 비중을 두었다.
-       (엄밀히는 전문가 쌍대비교(AHP)로 도출하는 것이 정석이며, 본 연구에서는 합이 1이 되는 예시 비중을 사용하였다.)</p>
+       (엄밀히는 전문가 쌍대비교(AHP)로 도출하는 것이 정석이며, 이 프로젝트에서는 합이 1이 되는 예시 비중을 사용하였다.)</p>
     <p>한 가지 원칙을 적용하였다. 위험에 지나치게 근접한 지점은 이미 해당 항목 점수가 0이 되어 자동으로 감점되므로,
        별도의 ‘실격 처리’를 추가하지 않았다. 동일한 위험을 점수와 실격으로 두 번 차감하는 <b>이중 감점</b>을 피하기 위함이다.</p>
     <figure class="wide">
@@ -187,8 +187,7 @@
   <div class="wrap reveal">
     <span class="kicker">05 — 탐구</span>
     <h2>점수를 시대·정치·사고와 교차하다</h2>
-    <p class="intro">이제 점수를 여러 역사적 변수와 교차한다. 이 지점에서 본 연구의 핵심 발견이 드러난다.
-       (사고·핵무기 등 외부 사실은 모두 출처를 명시하였다.)</p>
+    <p class="intro">이제 점수를 여러 역사적 변수와 교차한다. 이 지점에서 이 프로젝트의 핵심 발견이 드러난다.</p>
 
     <div class="card">
       <img src="img/extra_score_regime.png" alt="점수대별 정치체제 구성" />
@@ -224,16 +223,6 @@
       </div>
     </div>
 
-    <div class="card">
-      <img src="img/extra_weapons.png" alt="핵무기 보유국 비교" />
-      <div class="card-body">
-        <h3>핵무기를 늦게 보유한 국가일수록 도시 가까이에</h3>
-        <p>건설 당시 핵무기 보유 여부로 구분하면, 보유국은 인구중심까지 중앙값 <b>19km</b>로 비교적 멀리, 비보유국은
-           <b>6.5km</b>로 훨씬 가까이 건설하였다. 원자력의 ‘평화적 이용’이 늦게 시작된 후발국일수록 수요지에 근접하여
-           입지시킨 경향이다.</p>
-        <p class="ref">출처 — 최초 핵실험 연도 SIPRI/Arms Control Association (data/nuclear_weapons.csv).</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -257,9 +246,9 @@
       <figure><img src="img/temporal_drift_top.png" alt="시대별 적합도 변화"><figcaption>건설 이후 도시가 확장하며 적합도가 하락한 원전들.</figcaption></figure>
     </div>
 
-    <p>탐구에서 확인한 네 가지 단서도 모두 같은 결론을 가리킨다. ① 점수가 낮은 입지일수록 권위주의가 건설하였고,
+    <p>탐구에서 확인한 세 가지 단서도 모두 같은 결론을 가리킨다. ① 점수가 낮은 입지일수록 권위주의가 건설하였고,
        ② 사고는 그 낮은 점수의 입지(특히 해안 저지대)에서 더 빈번하였으며, ③ 어떤 사고 이후에도 원전은 더 멀어지지
-       않았고, ④ 핵무기를 늦게 보유한 후발국일수록 도시에 더 가까이 건설하였다.</p>
+       않았다.</p>
 
     <div class="takeaway">
       원자력 발전소 입지를 가른 1차 동인은 <b>시대정신이 아니라 정치체제</b>였다. 권위주의는 효율을 위해 사람 곁에,
@@ -281,6 +270,6 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="js/app.js?v=6"></script>
+<script src="js/app.js?v=7"></script>
 </body>
 </html>

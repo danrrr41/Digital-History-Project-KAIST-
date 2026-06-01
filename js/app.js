@@ -31,36 +31,52 @@ function scoreColor(v){
   return "rgb(26,152,80)";
 }
 
-/* ---- 지도 공통 ---- */
+/* ---- 지도 공통 ---- 태평양(한국) 중심, 한 세계만(무한반복 차단) ---- */
+const PC = 150;                       // 지도 중심 경도(한국·태평양)
 function makeMap(id){
-  const m = L.map(id,{minZoom:2,maxZoom:7,worldCopyJump:true,
-                      zoomControl:true,attributionControl:true}).setView([26,12],2);
+  const m = L.map(id,{minZoom:2,maxZoom:7,zoomSnap:0.5,worldCopyJump:false,
+                      maxBounds:[[-60,PC-182],[84,PC+182]], maxBoundsViscosity:1.0,
+                      zoomControl:true,attributionControl:true}).setView([33,PC],2);
   L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
     {attribution:"&copy; OpenStreetMap, &copy; CARTO", subdomains:"abcd", maxZoom:19}).addTo(m);
   return m;
 }
 
-let mapCtx, mapFinal, IMG_BOUNDS;
+let mapCtx, mapFinal, IMG_BOUNDS, IMG_BOUNDS_E;
 const overlays = {};
+
+// 오버레이를 원본(-180~180)과 +360 복제본으로 동시에 깔아 태평양 중심에서 양쪽 모두 채움
+function overlayGroup(file, opacity){
+  return L.layerGroup([
+    L.imageOverlay(file, IMG_BOUNDS,   {opacity}),
+    L.imageOverlay(file, IMG_BOUNDS_E, {opacity})
+  ]);
+}
+// 원전 마커도 lon, lon+360 두 곳에 찍어 아메리카가 오른쪽에 보이도록
+function addPlantMarkers(group, plants, styleFn, onClick){
+  plants.forEach(p => [p.lon, p.lon + 360].forEach(lon => {
+    const mk = L.circleMarker([p.lat, lon], styleFn(p))
+      .bindTooltip(`${p.name} · ${p.final!=null?p.final.toFixed(0)+"점":(p.country||"")}`);
+    if (onClick) mk.on("click", () => onClick(p));
+    mk.addTo(group);
+  }));
+}
 
 async function init(){
   const b = await (await fetch(OVL+"bounds.json")).json();
-  IMG_BOUNDS = [[b.south,b.west],[b.north,b.east]];
+  IMG_BOUNDS   = [[b.south,b.west],[b.north,b.east]];
+  IMG_BOUNDS_E = [[b.south,b.west+360],[b.north,b.east+360]];
   const plants = await (await fetch("data/plants.json")).json();
 
   /* ===== Map 1: 맥락 ===== */
   mapCtx = makeMap("map-context");
-  overlays.pop   = L.imageOverlay(OVL+"layer_population.png", IMG_BOUNDS,{opacity:0.9}).addTo(mapCtx);
-  overlays.seis  = L.imageOverlay(OVL+"layer_seismic.png",    IMG_BOUNDS,{opacity:0.95}).addTo(mapCtx);
-  overlays.water = L.imageOverlay(OVL+"layer_water.png",      IMG_BOUNDS,{opacity:0.9}).addTo(mapCtx);
+  overlays.pop   = overlayGroup(OVL+"layer_population.png", 0.9).addTo(mapCtx);
+  overlays.seis  = overlayGroup(OVL+"layer_seismic.png",    0.95).addTo(mapCtx);
+  overlays.water = overlayGroup(OVL+"layer_water.png",      0.9).addTo(mapCtx);
 
   const plantLayer1 = L.layerGroup().addTo(mapCtx);
-  plants.forEach(p => {
-    L.circleMarker([p.lat,p.lon],{radius:3,color:"#111",weight:0.6,
-      fillColor:"#ffd400",fillOpacity:0.95})
-      .bindTooltip(`${p.name} (${p.country}${p.year?", "+p.year:""})`)
-      .addTo(plantLayer1);
-  });
+  addPlantMarkers(plantLayer1, plants,
+    () => ({radius:3,color:"#111",weight:0.6,fillColor:"#ffd400",fillOpacity:0.95}), null);
 
   bindToggle("t-pop","pop"); bindToggle("t-seis","seis"); bindToggle("t-water","water");
   document.getElementById("t-plants1").addEventListener("change",e=>{
@@ -69,15 +85,11 @@ async function init(){
 
   /* ===== Map 2: 최종 적합도 + 원전 클릭 ===== */
   mapFinal = makeMap("map-final");
-  L.imageOverlay(OVL+"layer_final_pct.png", IMG_BOUNDS,{opacity:0.82}).addTo(mapFinal);
-
-  plants.forEach(p => {
-    L.circleMarker([p.lat,p.lon],{radius:4.5,color:"#0b0e13",weight:1,
-      fillColor:scoreColor(p.final),fillOpacity:0.95})
-      .on("click",()=>showDetail(p))
-      .bindTooltip(`${p.name} · ${p.final.toFixed(0)}점`)
-      .addTo(mapFinal);
-  });
+  overlayGroup(OVL+"layer_final_pct.png", 0.82).addTo(mapFinal);
+  const plantLayer2 = L.layerGroup().addTo(mapFinal);
+  addPlantMarkers(plantLayer2, plants,
+    (p) => ({radius:4.5,color:"#0b0e13",weight:1,fillColor:scoreColor(p.final),fillOpacity:0.95}),
+    showDetail);
 
   buildLegend();
   observeMapResize();
@@ -146,3 +158,21 @@ init().catch(err=>{
   console.error(err);
   document.getElementById("plant-detail").innerHTML="<p class='ph'>데이터 로드 실패 — 로컬 서버(python -m http.server)로 열어주세요.</p>";
 });
+
+/* ---- 차트 이미지 라이트박스(클릭 시 크게) ---- */
+(function lightbox(){
+  const lb = document.createElement("div");
+  lb.id = "lightbox";
+  lb.innerHTML = '<span class="x">×</span><img alt="확대 이미지">';
+  document.body.appendChild(lb);
+  const close = () => lb.classList.remove("open");
+  lb.addEventListener("click", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+  document.querySelectorAll(".card img, figure.wide img, .figrow img").forEach(img => {
+    img.addEventListener("click", e => {
+      e.stopPropagation();
+      lb.querySelector("img").src = img.currentSrc || img.src;
+      lb.classList.add("open");
+    });
+  });
+})();
