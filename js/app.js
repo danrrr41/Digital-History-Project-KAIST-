@@ -37,10 +37,9 @@ function makeMap(id){
   const m = L.map(id,{minZoom:1.5,maxZoom:7,zoomSnap:0.5,worldCopyJump:false,
                       maxBounds:[[-58,PC-180],[82,PC+180]], maxBoundsViscosity:1.0,
                       zoomControl:true,attributionControl:true}).setView([22,PC],2);
-  // noWrap:true → 타일이 좌우로 반복되지 않아 상단 그린란드 등이 양쪽으로 갈라지지 않음.
-  // 아메리카(오른쪽)는 +360 복제 오버레이/마커로 채운다.
+  // 타일은 좌우로 이어지게(wrap) 두어 아메리카(오른쪽)에도 배경지도가 채워지도록 한다.
   L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-    {attribution:"&copy; OpenStreetMap, &copy; CARTO", subdomains:"abcd", maxZoom:19, noWrap:true}).addTo(m);
+    {attribution:"&copy; OpenStreetMap, &copy; CARTO", subdomains:"abcd", maxZoom:19}).addTo(m);
   return m;
 }
 
