@@ -1,0 +1,148 @@
+/* 원전 입지 적합도 — 인터랙션 */
+"use strict";
+
+const OVL = "data/overlays/";
+const REGIME_LABEL = {0:"폐쇄독재",1:"선거독재",2:"선거민주",3:"자유민주"};
+const REGIME_COLOR = {0:"#b2182b",1:"#ef8a62",2:"#67a9cf",3:"#2166ac"};
+
+/* ---- 진행바 ---- */
+const progress = document.getElementById("progress");
+window.addEventListener("scroll", () => {
+  const h = document.documentElement;
+  const p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+  progress.style.width = (p * 100) + "%";
+}, {passive:true});
+
+/* ---- reveal ---- */
+const io = new IntersectionObserver((es) => {
+  es.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+}, {threshold:0.12});
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+/* ---- RdYlGn 색 (0~100) ---- */
+const STOPS = [[0,165,0,38],[25,244,109,67],[50,254,224,139],[75,166,217,106],[100,26,152,80]];
+function lerp(a,b,t){return Math.round(a+(b-a)*t);}
+function scoreColor(v){
+  v = Math.max(0, Math.min(100, v));
+  for (let i=0;i<STOPS.length-1;i++){
+    const [v0,r0,g0,b0]=STOPS[i], [v1,r1,g1,b1]=STOPS[i+1];
+    if (v<=v1){ const t=(v-v0)/(v1-v0); return `rgb(${lerp(r0,r1,t)},${lerp(g0,g1,t)},${lerp(b0,b1,t)})`; }
+  }
+  return "rgb(26,152,80)";
+}
+
+/* ---- 지도 공통 ---- */
+function makeMap(id){
+  const m = L.map(id,{minZoom:2,maxZoom:7,worldCopyJump:true,
+                      zoomControl:true,attributionControl:true}).setView([26,12],2);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+    {attribution:"&copy; OpenStreetMap, &copy; CARTO", subdomains:"abcd", maxZoom:19}).addTo(m);
+  return m;
+}
+
+let mapCtx, mapFinal, IMG_BOUNDS;
+const overlays = {};
+
+async function init(){
+  const b = await (await fetch(OVL+"bounds.json")).json();
+  IMG_BOUNDS = [[b.south,b.west],[b.north,b.east]];
+  const plants = await (await fetch("data/plants.json")).json();
+
+  /* ===== Map 1: 맥락 ===== */
+  mapCtx = makeMap("map-context");
+  overlays.pop   = L.imageOverlay(OVL+"layer_population.png", IMG_BOUNDS,{opacity:0.9}).addTo(mapCtx);
+  overlays.seis  = L.imageOverlay(OVL+"layer_seismic.png",    IMG_BOUNDS,{opacity:0.95}).addTo(mapCtx);
+  overlays.water = L.imageOverlay(OVL+"layer_water.png",      IMG_BOUNDS,{opacity:0.9}).addTo(mapCtx);
+
+  const plantLayer1 = L.layerGroup().addTo(mapCtx);
+  plants.forEach(p => {
+    L.circleMarker([p.lat,p.lon],{radius:3,color:"#111",weight:0.6,
+      fillColor:"#ffd400",fillOpacity:0.95})
+      .bindTooltip(`${p.name} (${p.country}${p.year?", "+p.year:""})`)
+      .addTo(plantLayer1);
+  });
+
+  bindToggle("t-pop","pop"); bindToggle("t-seis","seis"); bindToggle("t-water","water");
+  document.getElementById("t-plants1").addEventListener("change",e=>{
+    e.target.checked ? plantLayer1.addTo(mapCtx) : mapCtx.removeLayer(plantLayer1);
+  });
+
+  /* ===== Map 2: 최종 적합도 + 원전 클릭 ===== */
+  mapFinal = makeMap("map-final");
+  L.imageOverlay(OVL+"layer_final_pct.png", IMG_BOUNDS,{opacity:0.82}).addTo(mapFinal);
+
+  plants.forEach(p => {
+    L.circleMarker([p.lat,p.lon],{radius:4.5,color:"#0b0e13",weight:1,
+      fillColor:scoreColor(p.final),fillOpacity:0.95})
+      .on("click",()=>showDetail(p))
+      .bindTooltip(`${p.name} · ${p.final.toFixed(0)}점`)
+      .addTo(mapFinal);
+  });
+
+  buildLegend();
+  observeMapResize();
+  window._maps = {ctx:mapCtx, final:mapFinal};
+}
+
+function bindToggle(checkboxId, key){
+  document.getElementById(checkboxId).addEventListener("change", e=>{
+    e.target.checked ? overlays[key].addTo(mapCtx) : mapCtx.removeLayer(overlays[key]);
+  });
+}
+
+/* ---- 원전 상세 패널 ---- */
+function bar(label, val){
+  return `<div class="scorebar"><div class="lab"><span>${label}</span><span>${val.toFixed(0)}</span></div>
+    <div class="track"><div class="fill" style="width:${Math.max(2,val)}%;background:${scoreColor(val)}"></div></div></div>`;
+}
+function showDetail(p){
+  const reg = (p.regime!=null) ? p.regime : null;
+  const regBadge = reg!=null
+    ? `<span class="badge" style="background:${REGIME_COLOR[reg]}33;color:${REGIME_COLOR[reg]};border:1px solid ${REGIME_COLOR[reg]}">${REGIME_LABEL[reg]}</span>`
+    : `<span class="badge" style="background:#333;color:#aaa">체제 정보 없음</span>`;
+  const reasonHtml = p.reason
+    ? `<div class="dreason"><div class="rh">왜 이곳에 지었나</div><p>${p.reason}</p>${
+        (p.sources && p.sources.length)
+          ? `<div class="rsrc">출처: ${p.sources.slice(0,3).map((u,i)=>`<a href="${u}" target="_blank" rel="noopener">[${i+1}]</a>`).join(" ")}</div>` : ""
+      }</div>`
+    : `<div class="dreason muted">입지 이유: 신뢰할 출처를 아직 확보하지 못함(미표기)</div>`;
+  document.getElementById("plant-detail").innerHTML = `
+    <div class="dname">${p.name}</div>
+    <div class="dmeta">${p.country} · 건설 ${p.year||"?"}</div>
+    <div class="dfinal" style="color:${scoreColor(p.final)}">${p.final.toFixed(1)}<span style="font-size:.9rem;color:#9aa7b8"> / 100</span></div>
+    <div style="color:#9aa7b8;font-size:.85rem;margin-bottom:14px">최종 적합도 (5요소 가중합)</div>
+    ${bar("지진 안전", p.seismic)}
+    ${bar("수원 근접", p.water)}
+    ${bar("인구 이격", p.population)}
+    ${bar("홍수 안전", p.flood)}
+    ${bar("화산 안전", p.volcano)}
+    <div style="margin-top:14px">건설 당시 정치체제: ${regBadge}</div>
+    ${reasonHtml}
+    <div class="dlist">
+      가장 가까운 단층/판경계: <b>${p.d_fault_km} km</b><br>
+      가장 가까운 수원: <b>${p.d_water_km} km</b><br>
+      가장 가까운 인구중심: <b>${p.d_pop_km} km</b><br>
+      해발고도: <b>${p.elev_m} m</b> · 가장 가까운 화산: <b>${p.d_volcano_km} km</b>
+    </div>`;
+}
+
+function buildLegend(){
+  document.getElementById("legend-final").innerHTML =
+    `<span>부적합</span><span class="bar"></span><span>적합</span>
+     <span style="margin-left:18px">· 마커 색 = 원전 최종점수 · 히트맵 = 육지 백분위</span>`;
+}
+
+/* 지도 컨테이너가 보일 때 크기 재계산 (Leaflet 필수) */
+function observeMapResize(){
+  const ro = new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ const id=e.target.id;
+      setTimeout(()=>{ (id==="s-context"?mapCtx:mapFinal).invalidateSize(); },250);
+    }});
+  },{threshold:0.05});
+  ["s-context","s-heatmap"].forEach(id=>ro.observe(document.getElementById(id)));
+}
+
+init().catch(err=>{
+  console.error(err);
+  document.getElementById("plant-detail").innerHTML="<p class='ph'>데이터 로드 실패 — 로컬 서버(python -m http.server)로 열어주세요.</p>";
+});
