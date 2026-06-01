@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=7" />
+<link rel="stylesheet" href="css/style.css?v=8" />
 </head>
 <body>
 <div id="progress"></div>
@@ -241,10 +241,19 @@
        (59%가 16km 이내)로 사람 가까이에, 민주주의 국가는 23km로 더 멀리 입지시켰다. 반대를 통제할 수 있는 국가는
        효율(수요·노동력·계획도시)을 위해 사람 곁을 택하였고, 시민의 반대(NIMBY)에 직면한 국가는 멀리 밀려난 것이다.</p>
 
-    <div class="figrow">
-      <figure><img src="img/politics_analysis.png" alt="정치체제 분석"><figcaption>정치체제별 인구 이격거리와 시대별 건설 주체의 변화.</figcaption></figure>
-      <figure><img src="img/temporal_drift_top.png" alt="시대별 적합도 변화"><figcaption>건설 이후 도시가 확장하며 적합도가 하락한 원전들.</figcaption></figure>
-    </div>
+    <figure class="wide">
+      <img src="img/politics_analysis.png" alt="정치체제별 입지 분석" />
+      <figcaption>정치체제별 인구 이격거리(왼쪽)와 건설 연도별 입지 거리(오른쪽). 클릭하면 크게 볼 수 있다.</figcaption>
+    </figure>
+    <p>이 그래프가 프로젝트의 핵심 증거다. <b>왼쪽</b>은 건설 당시 정치체제별로 원전이 인구중심에서 얼마나 떨어져
+       있었는지를 상자그림으로 보여준다. 가장 왼쪽의 <b>폐쇄적 독재</b> 국가는 중앙값이 약 13km로 붉은 EPZ(16km) 경계
+       아래에 머물러, 건설된 원전의 절반 이상이 방사능 영향권 안에 들어섰다. 오른쪽으로 갈수록, 즉 체제가 민주적일수록
+       상자가 위로 올라가 <b>자유민주주의</b> 국가는 중앙값이 약 23km로 ‘최적’(녹색 32km)에 가깝다. 두 집단의 차이는
+       통계적으로 분명하다(p=0.0003).</p>
+    <p><b>오른쪽</b>은 건설 연도에 따른 입지 거리의 산점도다. 붉은 점(권위주의)과 파란 점(민주주의)이 뒤섞여 있고,
+       검은 추세선은 거의 평평하다. TMI(1979)·체르노빌(1986)을 가리키는 점선을 지난 뒤에도 점들이 위로 올라가지
+       않는다는 점이 핵심이다. 다시 말해 <b>시간이 흐르거나 대형 사고를 겪은 뒤에도 원전이 사람에게서 더 멀어지지는
+       않았다</b>. 입지를 가른 것은 ‘언제 지었는가’가 아니라 ‘어떤 체제가 지었는가’였다.</p>
 
     <p>탐구에서 확인한 세 가지 단서도 모두 같은 결론을 가리킨다. ① 점수가 낮은 입지일수록 권위주의가 건설하였고,
        ② 사고는 그 낮은 점수의 입지(특히 해안 저지대)에서 더 빈번하였으며, ③ 어떤 사고 이후에도 원전은 더 멀어지지
@@ -270,6 +279,6 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="js/app.js?v=7"></script>
+<script src="js/app.js?v=8"></script>
 </body>
 </html>

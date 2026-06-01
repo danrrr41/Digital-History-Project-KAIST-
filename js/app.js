@@ -34,11 +34,13 @@ function scoreColor(v){
 /* ---- 지도 공통 ---- 태평양(한국) 중심, 한 세계만(무한반복 차단) ---- */
 const PC = 150;                       // 지도 중심 경도(한국·태평양)
 function makeMap(id){
-  const m = L.map(id,{minZoom:2,maxZoom:7,zoomSnap:0.5,worldCopyJump:false,
-                      maxBounds:[[-60,PC-182],[84,PC+182]], maxBoundsViscosity:1.0,
-                      zoomControl:true,attributionControl:true}).setView([33,PC],2);
+  const m = L.map(id,{minZoom:1.5,maxZoom:7,zoomSnap:0.5,worldCopyJump:false,
+                      maxBounds:[[-58,PC-180],[82,PC+180]], maxBoundsViscosity:1.0,
+                      zoomControl:true,attributionControl:true}).setView([22,PC],2);
+  // noWrap:true → 타일이 좌우로 반복되지 않아 상단 그린란드 등이 양쪽으로 갈라지지 않음.
+  // 아메리카(오른쪽)는 +360 복제 오버레이/마커로 채운다.
   L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-    {attribution:"&copy; OpenStreetMap, &copy; CARTO", subdomains:"abcd", maxZoom:19}).addTo(m);
+    {attribution:"&copy; OpenStreetMap, &copy; CARTO", subdomains:"abcd", maxZoom:19, noWrap:true}).addTo(m);
   return m;
 }
 
