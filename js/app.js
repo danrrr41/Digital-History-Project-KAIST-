@@ -34,13 +34,21 @@ function scoreColor(v){
 /* ---- 지도 공통 ---- 태평양(한국) 중심, 한 세계만(무한반복 차단) ---- */
 const PC = 150;                       // 지도 중심 경도(한국·태평양)
 function makeMap(id){
-  const m = L.map(id,{minZoom:1.5,maxZoom:7,zoomSnap:0.5,worldCopyJump:false,
+  const m = L.map(id,{minZoom:1,maxZoom:7,zoomSnap:0.25,worldCopyJump:false,
                       maxBounds:[[-58,PC-180],[82,PC+180]], maxBoundsViscosity:1.0,
                       zoomControl:true,attributionControl:true}).setView([22,PC],2);
   // 타일은 좌우로 이어지게(wrap) 두어 아메리카(오른쪽)에도 배경지도가 채워지도록 한다.
   L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
     {attribution:"&copy; OpenStreetMap, &copy; CARTO", subdomains:"abcd", maxZoom:19}).addTo(m);
   return m;
+}
+// 지도 가로폭에 맞춰 전 세계(360°)가 한눈에 들어오도록 줌을 맞춤(폭이 좁으면 더 축소)
+function fitWidth(m){
+  const w = m.getSize().x;
+  if (!w) return;
+  let z = Math.log2(w / 256);                 // 360°가 가로폭과 같아지는 줌
+  z = Math.max(1, Math.min(7, Math.round(z * 4) / 4));
+  m.setView([22, PC], z, {animate:false});
 }
 
 let mapCtx, mapFinal, IMG_BOUNDS, IMG_BOUNDS_E;
@@ -147,12 +155,14 @@ function buildLegend(){
 
 /* 지도 컨테이너가 보일 때 크기 재계산 (Leaflet 필수) */
 function observeMapResize(){
+  const fit = (mp)=>{ mp.invalidateSize(); requestAnimationFrame(()=>fitWidth(mp)); };
   const ro = new IntersectionObserver((es)=>{
-    es.forEach(e=>{ if(e.isIntersecting){ const id=e.target.id;
-      setTimeout(()=>{ (id==="s-context"?mapCtx:mapFinal).invalidateSize(); },250);
+    es.forEach(e=>{ if(e.isIntersecting){ const mp=(e.target.id==="s-context"?mapCtx:mapFinal);
+      setTimeout(()=>fit(mp),200); setTimeout(()=>fit(mp),650);   // 레이아웃 안정 후 재보정
     }});
   },{threshold:0.05});
   ["s-context","s-heatmap"].forEach(id=>ro.observe(document.getElementById(id)));
+  let rt; addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{fit(mapCtx);fit(mapFinal);},200);});
 }
 
 init().catch(err=>{
