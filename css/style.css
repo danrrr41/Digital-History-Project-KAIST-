@@ -138,6 +138,15 @@ footer{padding:40px 24px;text-align:center;color:var(--muted);border-top:1px sol
 }
 .leaflet-popup-content{font-family:'Noto Sans KR',sans-serif}
 
+/* 참고문헌 섹션 */
+.ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.ref-col h3{font-size:1.05rem;color:var(--accent);font-weight:700;margin:0 0 12px;letter-spacing:.02em}
+.reflist{margin:0;padding:0;list-style:none}
+.reflist li{font-size:.9rem;color:#cdd7e3;line-height:1.65;padding:8px 0;border-bottom:1px solid var(--line)}
+.reflist li:last-child{border-bottom:none}
+.reflist li em{color:#fff;font-style:normal}
+@media(max-width:860px){.ref-grid{grid-template-columns:1fr}}
+
 /* 마진 주석(사이드노트) */
 .noteanchor{position:relative}
 .snref{color:var(--accent);font-weight:700;font-size:.72em;vertical-align:super;margin-left:1px}
