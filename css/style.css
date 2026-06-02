@@ -139,7 +139,7 @@ footer{padding:40px 24px;text-align:center;color:var(--muted);border-top:1px sol
 .leaflet-popup-content{font-family:'Noto Sans KR',sans-serif}
 
 /* 특이 사례 카드 */
-.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.case-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
 .case-card{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px}
 .case-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .case-tag{padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700}
@@ -158,7 +158,8 @@ footer{padding:40px 24px;text-align:center;color:var(--muted);border-top:1px sol
 .cs-final b{color:#fff;font-size:1.05rem}
 .case-desc{font-size:.88rem;color:#cdd7e3;line-height:1.65;margin:0}
 .case-desc b{color:#fff}
-@media(max-width:860px){.case-grid{grid-template-columns:1fr}}
+@media(max-width:1000px){.case-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.case-grid{grid-template-columns:1fr}}
 
 /* 참고문헌 섹션 */
 .ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}

@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=14" />
+<link rel="stylesheet" href="css/style.css?v=15" />
 </head>
 <body>
 <div id="progress"></div>
@@ -133,7 +133,7 @@
   <div class="wrap reveal narrow">
     <span class="kicker">02 — 방법</span>
     <h2>다섯 점수를 하나로 통합하다</h2>
-    <p>다섯 점수를 통합하기 위해 각 점수에 비중을 곱하여 합산하는 <b>가중선형결합(WLC)</b>을 사용하였다. GIS 기반
+    <p>다섯 점수를 통합하기 위해 각 점수에 비중을 곱하여 합산하는 <b>가중합(Weighted Linear Combination)</b>을 사용하였다. GIS 기반
        입지 평가에서 가장 널리 쓰이는 표준 방법이다.</p>
     <div class="formula">
       S<sub>최종</sub> = 0.28·지진 + 0.22·수원 + 0.22·인구 + 0.16·홍수 + 0.12·화산
@@ -231,7 +231,7 @@
 <section class="block alt" id="s-cases">
   <div class="wrap reveal">
     <span class="kicker">06 — 특이 사례</span>
-    <h2>모델이 포착한 위험 — 네 가지 사례</h2>
+    <h2>모델이 포착한 위험 — 세 가지 사례</h2>
     <p class="intro">점수 체계가 실제 원전 사고·위기와 어떻게 맞닿아 있는지를 구체 사례로 확인한다.
        모델 설계 시 사고 이력을 참고하지 않았음에도, 각 사례의 위험 요인이 점수표에 이미 반영되어 있다.</p>
 
@@ -290,27 +290,10 @@
         <p class="case-desc">해발 <b>2m</b>의 지롱드 강 하구 → 모델이 <b>홍수 8점</b>으로 저지대 위험을 포착한다. 1999년 마르탱 폭풍으로 강물이 넘쳐 냉각수 펌프가 침수되는 아찔한 위기를 겪었다. 설계 홍수 기준을 초과한 사건이었으나 INES 2등급에 그쳤다.</p>
       </div>
 
-      <!-- 바탄 -->
-      <div class="case-card">
-        <div class="case-header">
-          <div class="case-tag inactive">미가동 폐기</div>
-          <div class="case-label">화산 위협 · 부지 안전 논란</div>
-        </div>
-        <h3>바탄 원전 <span class="case-meta">필리핀 · 완공(1984) 후 폐기</span></h3>
-        <div class="case-scores">
-          <div class="cs-row"><span>지진 안전</span><div class="cs-bar"><div class="cs-fill" style="width:98%;background:#1a9850"></div></div><b class="cs-val">98</b></div>
-          <div class="cs-row"><span>수원 근접</span><div class="cs-bar"><div class="cs-fill" style="width:81%;background:#66bd63"></div></div><b class="cs-val">81</b></div>
-          <div class="cs-row"><span>인구 이격</span><div class="cs-bar"><div class="cs-fill" style="width:0%;background:#a50026"></div></div><b class="cs-val" style="color:#e5534b">0</b></div>
-          <div class="cs-row"><span>홍수 안전</span><div class="cs-bar"><div class="cs-fill" style="width:66%;background:#a6d96a"></div></div><b class="cs-val">66</b></div>
-          <div class="cs-row"><span>화산 안전</span><div class="cs-bar"><div class="cs-fill" style="width:98%;background:#1a9850"></div></div><b class="cs-val">98</b></div>
-          <div class="cs-final">최종 점수 <b>67.6</b> <span style="font-size:.78rem;color:var(--muted)">(좌표 기반 추정)</span></div>
-        </div>
-        <p class="case-desc">인구중심까지 불과 <b>1.3km</b> → 모델이 <b>인구 0점</b>으로 과밀 입지를 지적한다. 1984년 완공되었으나 피나투보 화산(60km) 폭발 위협, 지역 단층, 부지 안전 논란으로 결국 가동되지 않았다. 2023년 재가동 검토가 있었으나 안전 우려로 보류 중이다.</p>
-      </div>
     </div>
 
     <div class="takeaway" style="margin-top:30px">
-      네 사례 모두, 실제 사고·위기의 원인이 된 요인이 점수표에 <b>0점 또는 한 자릿수</b>로 이미 표시되어 있었다.
+      세 사례 모두, 실제 사고·위기의 원인이 된 요인이 점수표에 <b>0점 또는 한 자릿수</b>로 이미 표시되어 있었다.
       역사적 사고를 학습하지 않고 물리·규제 논리만으로 설계한 모델이 같은 위험을 독립적으로 포착한 것이다.
     </div>
   </div>
@@ -406,7 +389,7 @@
         <ul class="reflist">
           <li>Boore, D.M. & Atkinson, G.M. (2008). Ground-Motion Prediction Equations for the Average Horizontal Component of PGA, PGV, and 5%-Damped PSA. <em>Earthquake Spectra 24</em>(1):99–138.</li>
           <li>Eleruja, S. et al. (2020). A GIS-based site investigation for nuclear power plants (NPPs) in Nigeria. <em>Scientific African 7</em>:e00240.</li>
-          <li>Malczewski, J. (2000). On the use of weighted linear combination method in GIS. <em>Int. Journal of GIS.</em></li>
+          <li>Malczewski, J. (2000). On the use of weighted linear combination method in GIS (가중합). <em>Int. Journal of GIS.</em></li>
           <li>Saaty, T.L. (1980). <em>The Analytic Hierarchy Process.</em> McGraw-Hill.</li>
           <li>Stein, S. & Wysession, M. (2003). <em>An Introduction to Seismology, Earthquakes, and Earth Structure.</em></li>
           <li>Lay, T. & Wallace, T. (1995). <em>Modern Global Seismology.</em></li>
