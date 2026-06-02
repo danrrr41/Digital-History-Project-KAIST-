@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=16" />
+<link rel="stylesheet" href="css/style.css?v=17" />
 </head>
 <body>
 <div id="progress"></div>
@@ -130,11 +130,15 @@
 
 <!-- 2. FINAL -->
 <section class="block" id="s-final">
-  <div class="wrap reveal narrow">
+  <div class="wrap reveal narrow noteanchor">
     <span class="kicker">02 — 방법</span>
     <h2>다섯 점수를 하나로 통합하다</h2>
-    <p>다섯 점수를 통합하기 위해 각 점수에 비중을 곱하여 합산하는 <b>가중합(Weighted Linear Combination)</b>을 사용하였다. GIS 기반
+    <p>다섯 점수를 통합하기 위해 각 점수에 비중을 곱하여 합산하는 <b>가중합(Weighted Linear Combination)</b>을 사용하였다.
+       GIS<sup class="snref" data-note="gis-note">[1]</sup> 기반
        입지 평가에서 가장 널리 쓰이는 표준 방법이다.</p>
+    <aside class="sidenote" id="gis-note"><b>[1] GIS(지리정보시스템)란?</b> Geographic Information System.
+      지도·위성·공간 데이터를 수집·분석·시각화하는 소프트웨어 기반 시스템이다.
+      이 프로젝트에서는 전 세계 토지의 입지 적합도를 계산하고 원전 위치를 지도에 표현하는 데 활용하였다.</aside>
     <div class="formula">
       S<sub>최종</sub> = 0.28·지진 + 0.22·수원 + 0.22·인구 + 0.16·홍수 + 0.12·화산
     </div>
@@ -315,11 +319,11 @@
        달라졌기 때문이다. 사고 이후 서구 민주국가는 건설을 중단하였고, 그 공백을 중국 등 아시아 권위주의·고성장
        국가가 메웠다(체르노빌 이후 권위주의 건설 비중 16%→52%).</p>
 
-    <p>반대로 <b>정치체제 가설은 강하게 지지되었다</b>(p=0.0003<sup class="snref" data-note="n1">[1]</sup>). 권위주의
+    <p>반대로 <b>정치체제 가설은 강하게 지지되었다</b>(p=0.0003<sup class="snref" data-note="n1">[3]</sup>). 권위주의
        국가는 인구중심까지 중앙값 13km(59%가 16km 이내)로 사람 가까이에, 민주주의 국가는 23km로 더 멀리 입지시켰다.
        반대를 통제할 수 있는 국가는 효율(수요·노동력·계획도시)을 위해 사람 곁을 택하였고, 시민의 반대(NIMBY)에 직면한
        국가는 멀리 밀려난 것이다.</p>
-    <aside class="sidenote" id="n1"><b>[1] p값(유의확률)이란?</b> 만약 정치체제와 입지 거리가 사실은 아무 관계가
+    <aside class="sidenote" id="n1"><b>[3] p값(유의확률)이란?</b> 만약 정치체제와 입지 거리가 사실은 아무 관계가
       없다고 가정했을 때, 지금 관측된 만큼의 차이가 ‘순전히 우연으로’ 나타날 확률이다. 여기서 p=0.0003은 약 0.03%로
       매우 작아, 두 집단의 차이가 우연이라고 보기 어렵다 — 즉 통계적으로 의미 있는 차이다. (통상 0.05 미만이면 ‘유의하다’고 본다.)</aside>
 
