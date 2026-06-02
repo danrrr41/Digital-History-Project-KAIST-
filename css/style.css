@@ -138,6 +138,17 @@ footer{padding:40px 24px;text-align:center;color:var(--muted);border-top:1px sol
 }
 .leaflet-popup-content{font-family:'Noto Sans KR',sans-serif}
 
+/* 마진 주석(사이드노트) */
+.noteanchor{position:relative}
+.snref{color:var(--accent);font-weight:700;font-size:.72em;vertical-align:super;margin-left:1px}
+.sidenote{position:absolute;left:calc(100% + 28px);width:236px;font-size:.82rem;line-height:1.62;
+  color:#cdd7e3;background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:8px;padding:11px 13px}
+.sidenote b{color:var(--accent)}
+@media(max-width:1280px){
+  .sidenote{position:static;left:auto;width:auto;margin:12px 0 4px}
+}
+
 /* 차트 이미지 라이트박스(클릭 시 크게) */
 .card img,figure.wide img,.figrow img{cursor:zoom-in}
 #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;

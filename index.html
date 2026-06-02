@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=11" />
+<link rel="stylesheet" href="css/style.css?v=12" />
 </head>
 <body>
 <div id="progress"></div>
@@ -229,7 +229,7 @@
 
 <!-- 6. CONCLUSION -->
 <section class="block" id="s-conclusion">
-  <div class="wrap reveal narrow">
+  <div class="wrap reveal narrow noteanchor">
     <span class="kicker">06 — 결론</span>
     <h2>시대가 아니라, 정치체제가 입지를 갈랐다</h2>
 
@@ -238,9 +238,13 @@
        달라졌기 때문이다. 사고 이후 서구 민주국가는 건설을 중단하였고, 그 공백을 중국 등 아시아 권위주의·고성장
        국가가 메웠다(체르노빌 이후 권위주의 건설 비중 16%→52%).</p>
 
-    <p>반대로 <b>정치체제 가설은 강하게 지지되었다</b>(p=0.0003). 권위주의 국가는 인구중심까지 중앙값 13km
-       (59%가 16km 이내)로 사람 가까이에, 민주주의 국가는 23km로 더 멀리 입지시켰다. 반대를 통제할 수 있는 국가는
-       효율(수요·노동력·계획도시)을 위해 사람 곁을 택하였고, 시민의 반대(NIMBY)에 직면한 국가는 멀리 밀려난 것이다.</p>
+    <p>반대로 <b>정치체제 가설은 강하게 지지되었다</b>(p=0.0003<sup class="snref" data-note="n1">[1]</sup>). 권위주의
+       국가는 인구중심까지 중앙값 13km(59%가 16km 이내)로 사람 가까이에, 민주주의 국가는 23km로 더 멀리 입지시켰다.
+       반대를 통제할 수 있는 국가는 효율(수요·노동력·계획도시)을 위해 사람 곁을 택하였고, 시민의 반대(NIMBY)에 직면한
+       국가는 멀리 밀려난 것이다.</p>
+    <aside class="sidenote" id="n1"><b>[1] p값(유의확률)이란?</b> 만약 정치체제와 입지 거리가 사실은 아무 관계가
+      없다고 가정했을 때, 지금 관측된 만큼의 차이가 ‘순전히 우연으로’ 나타날 확률이다. 여기서 p=0.0003은 약 0.03%로
+      매우 작아, 두 집단의 차이가 우연이라고 보기 어렵다 — 즉 통계적으로 의미 있는 차이다. (통상 0.05 미만이면 ‘유의하다’고 본다.)</aside>
 
     <figure class="wide">
       <img src="img/politics_analysis.png" alt="정치체제별 입지 분석" />
@@ -292,6 +296,6 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="js/app.js?v=11"></script>
+<script src="js/app.js?v=12"></script>
 </body>
 </html>

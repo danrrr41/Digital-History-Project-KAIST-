@@ -170,6 +170,20 @@ init().catch(err=>{
   document.getElementById("plant-detail").innerHTML="<p class='ph'>데이터 로드 실패 — 로컬 서버(python -m http.server)로 열어주세요.</p>";
 });
 
+/* ---- 마진 주석: 마커 높이에 맞춰 오른쪽 여백에 정렬 ---- */
+function placeSidenotes(){
+  document.querySelectorAll(".snref[data-note]").forEach(ref=>{
+    const note = document.getElementById(ref.dataset.note);
+    const anchor = note && note.closest(".noteanchor");
+    if (!note || !anchor) return;
+    if (getComputedStyle(note).position !== "absolute"){ note.style.top = ""; return; }
+    note.style.top = (ref.getBoundingClientRect().top - anchor.getBoundingClientRect().top) + "px";
+  });
+}
+addEventListener("load", placeSidenotes);
+addEventListener("resize", placeSidenotes);
+[400, 1000, 1800].forEach(t => setTimeout(placeSidenotes, t));   // reveal 애니메이션 후 재정렬
+
 /* ---- 차트 이미지 라이트박스(클릭 시 크게) ---- */
 (function lightbox(){
   const lb = document.createElement("div");
