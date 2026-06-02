@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=15" />
+<link rel="stylesheet" href="css/style.css?v=16" />
 </head>
 <body>
 <div id="progress"></div>
@@ -229,11 +229,16 @@
 
 <!-- 6. 특이 사례 -->
 <section class="block alt" id="s-cases">
-  <div class="wrap reveal">
+  <div class="wrap reveal noteanchor">
     <span class="kicker">06 — 특이 사례</span>
     <h2>모델이 포착한 위험 — 세 가지 사례</h2>
     <p class="intro">점수 체계가 실제 원전 사고·위기와 어떻게 맞닿아 있는지를 구체 사례로 확인한다.
-       모델 설계 시 사고 이력을 참고하지 않았음에도, 각 사례의 위험 요인이 점수표에 이미 반영되어 있다.</p>
+       모델 설계 시 사고 이력을 참고하지 않았음에도, 각 사례의 위험 요인이 점수표에 이미 반영되어 있다.
+       각 카드의 INES<sup class="snref" data-note="ines-note">[2]</sup> 등급은 사고의 심각도를 나타낸다.</p>
+    <aside class="sidenote" id="ines-note"><b>[2] INES(국제 원자력 사건 등급척도)란?</b>
+      International Nuclear Event Scale. IAEA가 제정한 원자력 사고·사건의 심각도 척도로
+      0(이상 없음)부터 7(체르노빌·후쿠시마 수준)까지 8단계로 구분된다.
+      4~7등급은 '사고(Accident)', 1~3등급은 '사건(Incident)'으로 분류한다.</aside>
 
     <div class="case-grid">
       <!-- 후쿠시마 제1 -->
