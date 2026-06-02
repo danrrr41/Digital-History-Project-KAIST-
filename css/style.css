@@ -138,6 +138,28 @@ footer{padding:40px 24px;text-align:center;color:var(--muted);border-top:1px sol
 }
 .leaflet-popup-content{font-family:'Noto Sans KR',sans-serif}
 
+/* 특이 사례 카드 */
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.case-card{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.case-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.case-tag{padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700}
+.case-tag.danger{background:#b2182b33;color:#e5534b;border:1px solid #b2182b}
+.case-tag.warning{background:#f59e0b22;color:#f59e0b;border:1px solid #f59e0b}
+.case-tag.inactive{background:#55555533;color:#aaa;border:1px solid #555}
+.case-label{font-size:.82rem;color:var(--muted)}
+.case-card h3{font-size:1.05rem;margin:0;color:#fff}
+.case-meta{font-size:.82rem;font-weight:400;color:var(--muted);margin-left:6px}
+.case-scores{display:flex;flex-direction:column;gap:5px}
+.cs-row{display:grid;grid-template-columns:80px 1fr 32px;align-items:center;gap:8px;font-size:.82rem;color:var(--muted)}
+.cs-bar{height:7px;background:#222b38;border-radius:4px;overflow:hidden}
+.cs-fill{height:100%;border-radius:4px;transition:width .3s}
+.cs-val{text-align:right;font-size:.82rem;color:#fff}
+.cs-final{margin-top:6px;font-size:.9rem;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
+.cs-final b{color:#fff;font-size:1.05rem}
+.case-desc{font-size:.88rem;color:#cdd7e3;line-height:1.65;margin:0}
+.case-desc b{color:#fff}
+@media(max-width:860px){.case-grid{grid-template-columns:1fr}}
+
 /* 참고문헌 섹션 */
 .ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
 .ref-col h3{font-size:1.05rem;color:var(--accent);font-weight:700;margin:0 0 12px;letter-spacing:.02em}

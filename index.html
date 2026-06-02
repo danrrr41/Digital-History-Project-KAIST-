@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=13" />
+<link rel="stylesheet" href="css/style.css?v=14" />
 </head>
 <body>
 <div id="progress"></div>
@@ -23,6 +23,7 @@
     <a href="#s-context">지도</a>
     <a href="#s-heatmap">적합도</a>
     <a href="#s-explore">탐구</a>
+    <a href="#s-cases">사례</a>
     <a href="#s-conclusion">결론</a>
     <a href="#s-ai">참고문헌</a>
   </div>
@@ -205,8 +206,7 @@
       <div class="card-body">
         <h3>사고는 점수가 낮은 입지에서 더 빈번하였다</h3>
         <p>키시팀·윈드스케일(1957), TMI(1979), 체르노빌(1986), 후쿠시마(2011) 등 주요 사고가 발생한 원전의 평균
-           적합도는 <b>66.6점</b>으로 전체 평균(<b>71.6점</b>)보다 낮다. 특히 후쿠시마는 해안 저지대에 위치하여 ‘홍수’
-           점수가 낮았는데, 이는 본 모델이 실제 참사를 사후적으로 설명함을 보여준다.</p>
+           적합도는 <b>66.6점</b>으로 전체 평균(<b>71.6점</b>)보다 낮다. 모델이 실제 위험을 어떻게 포착했는지는 다음 섹션에서 상세히 살펴본다.</p>
         <p class="ref">출처 — IAEA INES 사건 등급 / Wikipedia (data/accidents.csv).</p>
       </div>
     </div>
@@ -227,10 +227,99 @@
   </div>
 </section>
 
-<!-- 6. CONCLUSION -->
+<!-- 6. 특이 사례 -->
+<section class="block alt" id="s-cases">
+  <div class="wrap reveal">
+    <span class="kicker">06 — 특이 사례</span>
+    <h2>모델이 포착한 위험 — 네 가지 사례</h2>
+    <p class="intro">점수 체계가 실제 원전 사고·위기와 어떻게 맞닿아 있는지를 구체 사례로 확인한다.
+       모델 설계 시 사고 이력을 참고하지 않았음에도, 각 사례의 위험 요인이 점수표에 이미 반영되어 있다.</p>
+
+    <div class="case-grid">
+      <!-- 후쿠시마 제1 -->
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-tag danger">실제 사고 INES 7</div>
+          <div class="case-label">지진 · 쓰나미</div>
+        </div>
+        <h3>후쿠시마 제1원전 <span class="case-meta">일본 · 1971년 건설</span></h3>
+        <div class="case-scores">
+          <div class="cs-row"><span>지진 안전</span><div class="cs-bar"><div class="cs-fill" style="width:0%;background:#a50026"></div></div><b class="cs-val" style="color:#e5534b">0</b></div>
+          <div class="cs-row"><span>수원 근접</span><div class="cs-bar"><div class="cs-fill" style="width:75%;background:#66bd63"></div></div><b class="cs-val">75</b></div>
+          <div class="cs-row"><span>인구 이격</span><div class="cs-bar"><div class="cs-fill" style="width:75%;background:#66bd63"></div></div><b class="cs-val">75</b></div>
+          <div class="cs-row"><span>홍수 안전</span><div class="cs-bar"><div class="cs-fill" style="width:83%;background:#66bd63"></div></div><b class="cs-val">83</b></div>
+          <div class="cs-row"><span>화산 안전</span><div class="cs-bar"><div class="cs-fill" style="width:98%;background:#1a9850"></div></div><b class="cs-val">98</b></div>
+          <div class="cs-final">최종 점수 <b>58.0</b></div>
+        </div>
+        <p class="case-desc">단층까지 <b>7.2km</b> → 모델이 <b>지진 0점</b>으로 경고한다. 2011년 동일본 대지진(M9.0)과 최대 15m 쓰나미로 냉각 시스템이 침수, 노심 용융이 발생했다. 건설 당시 원래 35m 고지였던 부지를 10m로 낮춘 결정이 피해를 키웠다.</p>
+      </div>
+
+      <!-- 가시와자키-가리와 -->
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-tag danger">실제 사고 INES 4</div>
+          <div class="case-label">강진 (활단층)</div>
+        </div>
+        <h3>가시와자키·가리와 원전 <span class="case-meta">일본 · 1985년 건설</span></h3>
+        <div class="case-scores">
+          <div class="cs-row"><span>지진 안전</span><div class="cs-bar"><div class="cs-fill" style="width:0%;background:#a50026"></div></div><b class="cs-val" style="color:#e5534b">0</b></div>
+          <div class="cs-row"><span>수원 근접</span><div class="cs-bar"><div class="cs-fill" style="width:97%;background:#1a9850"></div></div><b class="cs-val">97</b></div>
+          <div class="cs-row"><span>인구 이격</span><div class="cs-bar"><div class="cs-fill" style="width:0%;background:#a50026"></div></div><b class="cs-val" style="color:#e5534b">0</b></div>
+          <div class="cs-row"><span>홍수 안전</span><div class="cs-bar"><div class="cs-fill" style="width:37%;background:#f46d43"></div></div><b class="cs-val">37</b></div>
+          <div class="cs-row"><span>화산 안전</span><div class="cs-bar"><div class="cs-fill" style="width:99%;background:#1a9850"></div></div><b class="cs-val">99</b></div>
+          <div class="cs-final">최종 점수 <b>39.1</b></div>
+        </div>
+        <p class="case-desc">단층 <b>6.7km</b>·인구중심 <b>9km</b> → 모델이 <b>지진·인구 모두 0점</b>으로 이중 경고한다. 2007년 니가타현 지진(M6.6)으로 방사성 물질이 누출되었고 2019년까지 가동이 중단됐다. 건설 후 부지 바로 아래에서 활단층이 추가 발견됐다.</p>
+      </div>
+
+      <!-- 블라예 -->
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-tag warning">침수 사고 INES 2</div>
+          <div class="case-label">폭풍 해일 (홍수)</div>
+        </div>
+        <h3>블라예 원전 <span class="case-meta">프랑스 · 1981년 건설</span></h3>
+        <div class="case-scores">
+          <div class="cs-row"><span>지진 안전</span><div class="cs-bar"><div class="cs-fill" style="width:100%;background:#1a9850"></div></div><b class="cs-val">100</b></div>
+          <div class="cs-row"><span>수원 근접</span><div class="cs-bar"><div class="cs-fill" style="width:84%;background:#66bd63"></div></div><b class="cs-val">84</b></div>
+          <div class="cs-row"><span>인구 이격</span><div class="cs-bar"><div class="cs-fill" style="width:86%;background:#66bd63"></div></div><b class="cs-val">86</b></div>
+          <div class="cs-row"><span>홍수 안전</span><div class="cs-bar"><div class="cs-fill" style="width:8%;background:#a50026"></div></div><b class="cs-val" style="color:#e5534b">8</b></div>
+          <div class="cs-row"><span>화산 안전</span><div class="cs-bar"><div class="cs-fill" style="width:100%;background:#1a9850"></div></div><b class="cs-val">100</b></div>
+          <div class="cs-final">최종 점수 <b>78.6</b></div>
+        </div>
+        <p class="case-desc">해발 <b>2m</b>의 지롱드 강 하구 → 모델이 <b>홍수 8점</b>으로 저지대 위험을 포착한다. 1999년 마르탱 폭풍으로 강물이 넘쳐 냉각수 펌프가 침수되는 아찔한 위기를 겪었다. 설계 홍수 기준을 초과한 사건이었으나 INES 2등급에 그쳤다.</p>
+      </div>
+
+      <!-- 바탄 -->
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-tag inactive">미가동 폐기</div>
+          <div class="case-label">화산 위협 · 부지 안전 논란</div>
+        </div>
+        <h3>바탄 원전 <span class="case-meta">필리핀 · 완공(1984) 후 폐기</span></h3>
+        <div class="case-scores">
+          <div class="cs-row"><span>지진 안전</span><div class="cs-bar"><div class="cs-fill" style="width:98%;background:#1a9850"></div></div><b class="cs-val">98</b></div>
+          <div class="cs-row"><span>수원 근접</span><div class="cs-bar"><div class="cs-fill" style="width:81%;background:#66bd63"></div></div><b class="cs-val">81</b></div>
+          <div class="cs-row"><span>인구 이격</span><div class="cs-bar"><div class="cs-fill" style="width:0%;background:#a50026"></div></div><b class="cs-val" style="color:#e5534b">0</b></div>
+          <div class="cs-row"><span>홍수 안전</span><div class="cs-bar"><div class="cs-fill" style="width:66%;background:#a6d96a"></div></div><b class="cs-val">66</b></div>
+          <div class="cs-row"><span>화산 안전</span><div class="cs-bar"><div class="cs-fill" style="width:98%;background:#1a9850"></div></div><b class="cs-val">98</b></div>
+          <div class="cs-final">최종 점수 <b>67.6</b> <span style="font-size:.78rem;color:var(--muted)">(좌표 기반 추정)</span></div>
+        </div>
+        <p class="case-desc">인구중심까지 불과 <b>1.3km</b> → 모델이 <b>인구 0점</b>으로 과밀 입지를 지적한다. 1984년 완공되었으나 피나투보 화산(60km) 폭발 위협, 지역 단층, 부지 안전 논란으로 결국 가동되지 않았다. 2023년 재가동 검토가 있었으나 안전 우려로 보류 중이다.</p>
+      </div>
+    </div>
+
+    <div class="takeaway" style="margin-top:30px">
+      네 사례 모두, 실제 사고·위기의 원인이 된 요인이 점수표에 <b>0점 또는 한 자릿수</b>로 이미 표시되어 있었다.
+      역사적 사고를 학습하지 않고 물리·규제 논리만으로 설계한 모델이 같은 위험을 독립적으로 포착한 것이다.
+    </div>
+  </div>
+</section>
+
+<!-- 7. CONCLUSION -->
 <section class="block" id="s-conclusion">
   <div class="wrap reveal narrow noteanchor">
-    <span class="kicker">06 — 결론</span>
+    <span class="kicker">07 — 결론</span>
     <h2>시대가 아니라, 정치체제가 입지를 갈랐다</h2>
 
     <p>두 가설 중 하나는 무너지고 하나는 강화되었다. 먼저 <b>시대상 가설은 기각되었다</b>. 체르노빌 이후 오히려 원전은
@@ -280,7 +369,7 @@
 <!-- 7. AI 사용 및 Reference -->
 <section class="block alt" id="s-ai">
   <div class="wrap reveal">
-    <span class="kicker">07 — 부록</span>
+    <span class="kicker">08 — 부록</span>
     <h2>AI 사용 및 Reference</h2>
 
     <div class="ref-grid">
@@ -334,6 +423,6 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="js/app.js?v=13"></script>
+<script src="js/app.js?v=14"></script>
 </body>
 </html>
