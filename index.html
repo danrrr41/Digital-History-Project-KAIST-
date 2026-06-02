@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=18" />
+<link rel="stylesheet" href="css/style.css?v=19" />
 </head>
 <body>
 <div id="progress"></div>
@@ -190,7 +190,7 @@
 
 <!-- 5. EXPLORE -->
 <section class="block alt" id="s-explore">
-  <div class="wrap reveal">
+  <div class="wrap reveal noteanchor">
     <span class="kicker">05 — 탐구</span>
     <h2>점수를 시대·정치·사고와 교차하다</h2>
     <p class="intro">이제 점수를 여러 역사적 변수와 교차한다. 이 지점에서 이 프로젝트의 핵심 발견이 드러난다.</p>
@@ -199,11 +199,21 @@
       <img src="img/extra_score_regime.png" alt="점수대별 정치체제 구성" />
       <div class="card-body">
         <h3>점수가 낮은 입지일수록 권위주의가 건설하였다</h3>
-        <p>적합도 점수 구간별로 어떤 정치체제가 건설하였는지를 구분하면 뚜렷한 경향이 나타난다. 점수가 가장 낮은
+        <p>적합도 점수 구간별로 어떤 정치체제<sup class="snref" data-note="regime-note">[4]</sup>가 건설하였는지를
+           구분하면 뚜렷한 경향이 나타난다. 점수가 가장 낮은
            구간(20–40점)은 <b>57%가 폐쇄적 독재</b> 국가의 건설인 반면, 가장 높은 구간(80–100점)은
            <b>71%가 자유민주주의</b> 국가의 건설이다.</p>
       </div>
     </div>
+    <aside class="sidenote" id="regime-note"><b>[4] 정치체제 4분류 — V-Dem(RoW)</b><br>
+      스웨덴 예테보리대학교 민주주의다양성연구소(V-Dem)의 <em>Regimes of the World</em> 지수에 따른 분류다. 선거·법치·시민자유의 보장 수준을 기준으로 나뉜다.<br><br>
+      <b>폐쇄독재</b> — 경쟁 선거 자체가 없음. (예: 소련)<br>
+      <b>선거독재</b> — 선거는 있으나 경쟁이 제한됨. (예: 러시아)<br>
+      <b>선거민주</b> — 경쟁 선거가 있으나 자유 제약. (예: 인도)<br>
+      <b>자유민주</b> — 선거·법치·시민자유 모두 보장. (예: 독일)<br><br>
+      각 원전에 건설 연도와 국가를 기준으로 매칭하였다.<br>
+      <span style="font-size:.8rem;color:#9aa7b8">출처: Lührmann et al. (2018), Politics and Governance; V-Dem Dataset, University of Gothenburg.</span>
+    </aside>
 
     <div class="card">
       <img src="img/extra_accidents.png" alt="원전 사고 분석" />
@@ -389,7 +399,7 @@
           <li>Bird, P. (2003). PB2002 Tectonic Plate Boundaries. <em>Geochemistry Geophysics Geosystems 4</em>(3).</li>
           <li>GEM Foundation. <em>Global Active Faults Database.</em> github.com/GEMScienceTools.</li>
           <li>Natural Earth 1:10m (coastline, rivers, lakes). naturalearthdata.com.</li>
-          <li>V-Dem Institute / Our World in Data. <em>Regimes of the World</em> (political regime index).</li>
+          <li>V-Dem Institute / Our World in Data. <em>Regimes of the World</em> (political regime index). University of Gothenburg (스웨덴 예테보리대학교 민주주의다양성연구소).</li>
           <li>IAEA INES — Nuclear and Radiological Event Scale ratings.</li>
         </ul>
       </div>
@@ -399,6 +409,7 @@
         <ul class="reflist">
           <li>Boore, D.M. & Atkinson, G.M. (2008). Ground-Motion Prediction Equations for the Average Horizontal Component of PGA, PGV, and 5%-Damped PSA. <em>Earthquake Spectra 24</em>(1):99–138.</li>
           <li>Eleruja, S. et al. (2020). A GIS-based site investigation for nuclear power plants (NPPs) in Nigeria. <em>Scientific African 7</em>:e00240.</li>
+          <li>Lührmann, A., Tannenberg, M. &amp; Lindberg, S.I. (2018). Regimes of the World (RoW): Opening New Avenues for the Comparative Study of Political Regimes. <em>Politics and Governance 6</em>(1):60–77. — 정치체제 4분류 방법론 원전.</li>
           <li>Malczewski, J. (2000). On the use of weighted linear combination method in GIS (가중합). <em>Int. Journal of GIS.</em></li>
           <li>Saaty, T.L. (1980). <em>The Analytic Hierarchy Process.</em> McGraw-Hill.</li>
           <li>Stein, S. & Wysession, M. (2003). <em>An Introduction to Seismology, Earthquakes, and Earth Structure.</em></li>
