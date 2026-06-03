@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=22" />
+<link rel="stylesheet" href="css/style.css?v=23" />
 </head>
 <body>
 <div id="progress"></div>
@@ -377,7 +377,7 @@
 <section class="block alt" id="s-ai">
   <div class="wrap reveal">
     <span class="kicker">08 — 부록</span>
-    <h2>AI 사용 및 Reference</h2>
+    <h2>AI 사용 및 Reference <span style="font-size:.78rem;font-weight:400;color:var(--muted)">— 논문·데이터 항목 클릭 시 원문 페이지로 이동</span></h2>
 
     <div class="ref-grid">
       <div class="ref-col">
@@ -393,37 +393,35 @@
 
         <h3 style="margin-top:28px">데이터</h3>
         <ul class="reflist">
-          <li>Wikipedia. <em>List of nuclear power stations.</em> en.wikipedia.org — 전 세계 원전 233기의 위치·건설연도·용량·운영상태 수집 원천.</li>
-          <li>U.S. NRC. <em>10 CFR Part 100</em>, Reactor Site Criteria, Appendix A.</li>
-          <li>Federal Register Vol.89 No.41 (2024-02-29), Doc. 2024-04223 — NRC RG 4.7 Rev.4, <em>General Site Suitability Criteria for Nuclear Power Stations.</em></li>
-          <li>U.S. NRC. <em>10 CFR 50.33</em>, Contents of applications — §(g)(1) EPZ.</li>
-          <li>U.S. NRC. <em>Regulatory Guide 1.145</em>, Atmospheric Dispersion Models; NUREG/CR-2260.</li>
-          <li>GHS-POP R2023A 30″ (Global Human Settlement Layer). European Commission JRC.</li>
-          <li>ETOPO 2022 v1 60″ (Global Relief Model). NOAA NCEI.</li>
-          <li>Smithsonian Institution GVP. <em>Volcanoes of the World</em> (Holocene Volcanoes).</li>
-          <li>Bird, P. (2003). PB2002 Tectonic Plate Boundaries. <em>Geochemistry Geophysics Geosystems 4</em>(3).</li>
-          <li>GEM Foundation. <em>Global Active Faults Database.</em> github.com/GEMScienceTools.</li>
-          <li>Natural Earth 1:10m (coastline, rivers, lakes). naturalearthdata.com.</li>
-          <li>V-Dem Institute / Our World in Data. <em>Regimes of the World</em> (political regime index). University of Gothenburg (스웨덴 예테보리대학교 민주주의다양성연구소).</li>
-          <li>IAEA INES — Nuclear and Radiological Event Scale ratings.</li>
+          <li><a href="https://en.wikipedia.org/wiki/List_of_nuclear_power_stations" target="_blank" rel="noopener">Wikipedia. <em>List of nuclear power stations.</em></a> — 전 세계 원전 233기의 위치·건설연도·용량·운영상태 수집 원천.</li>
+          <li><a href="https://www.ecfr.gov/current/title-10/chapter-I/part-100" target="_blank" rel="noopener">U.S. NRC. <em>10 CFR Part 100</em>, Reactor Site Criteria, Appendix A.</a></li>
+          <li><a href="https://www.federalregister.gov/documents/2024/02/29/2024-04223" target="_blank" rel="noopener">Federal Register Vol.89 No.41 (2024-02-29), Doc. 2024-04223 — NRC RG 4.7 Rev.4, <em>General Site Suitability Criteria for Nuclear Power Stations.</em></a></li>
+          <li><a href="https://www.ecfr.gov/current/title-10/chapter-I/part-50/section-50.33" target="_blank" rel="noopener">U.S. NRC. <em>10 CFR 50.33</em>, Contents of applications — §(g)(1) EPZ.</a></li>
+          <li><a href="https://www.nrc.gov/reading-rm/doc-collections/reg-guides/reactors/rg/01-145.html" target="_blank" rel="noopener">U.S. NRC. <em>Regulatory Guide 1.145</em>, Atmospheric Dispersion Models; NUREG/CR-2260.</a></li>
+          <li><a href="https://ghsl.jrc.ec.europa.eu/ghs_pop2023.php" target="_blank" rel="noopener">GHS-POP R2023A 30″ (Global Human Settlement Layer). European Commission JRC.</a></li>
+          <li><a href="https://www.ncei.noaa.gov/products/etopo-global-relief-model" target="_blank" rel="noopener">ETOPO 2022 v1 60″ (Global Relief Model). NOAA NCEI.</a></li>
+          <li><a href="https://volcano.si.edu/" target="_blank" rel="noopener">Smithsonian Institution GVP. <em>Volcanoes of the World</em> (Holocene Volcanoes).</a></li>
+          <li><a href="https://doi.org/10.1029/2001GC000252" target="_blank" rel="noopener">Bird, P. (2003). PB2002 Tectonic Plate Boundaries. <em>Geochemistry Geophysics Geosystems 4</em>(3).</a></li>
+          <li><a href="https://github.com/GEMScienceTools/gem-global-active-faults" target="_blank" rel="noopener">GEM Foundation. <em>Global Active Faults Database.</em></a></li>
+          <li><a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth 1:10m (coastline, rivers, lakes).</a></li>
+          <li><a href="https://v-dem.net/" target="_blank" rel="noopener">V-Dem Institute / Our World in Data. <em>Regimes of the World.</em> University of Gothenburg.</a></li>
+          <li><a href="https://www.iaea.org/topics/ines" target="_blank" rel="noopener">IAEA INES — Nuclear and Radiological Event Scale ratings.</a></li>
         </ul>
       </div>
 
       <div class="ref-col">
         <h3>논문 및 학술 자료</h3>
         <ul class="reflist">
-          <li>Boore, D.M. & Atkinson, G.M. (2008). Ground-Motion Prediction Equations for the Average Horizontal Component of PGA, PGV, and 5%-Damped PSA. <em>Earthquake Spectra 24</em>(1):99–138.</li>
-          <li>Eleruja, S. et al. (2020). A GIS-based site investigation for nuclear power plants (NPPs) in Nigeria. <em>Scientific African 7</em>:e00240.</li>
+          <li><a href="https://doi.org/10.1193/1.2830434" target="_blank" rel="noopener">Boore, D.M. &amp; Atkinson, G.M. (2008). Ground-Motion Prediction Equations. <em>Earthquake Spectra 24</em>(1):99–138.</a></li>
+          <li><a href="https://doi.org/10.1016/j.sciaf.2019.e00240" target="_blank" rel="noopener">Eleruja, S. et al. (2020). A GIS-based site investigation for NPPs in Nigeria. <em>Scientific African 7</em>:e00240.</a></li>
           <li>Brown, Kate (2013). <em>Plutopia: Nuclear Families, Atomic Cities, and the Great Soviet and American Plutonium Disasters.</em> Oxford University Press.</li>
-          <li>Lührmann, A., Tannenberg, M. &amp; Lindberg, S.I. (2018). Regimes of the World (RoW): Opening New Avenues for the Comparative Study of Political Regimes. <em>Politics and Governance 6</em>(1):60–77.</li>
+          <li><a href="https://doi.org/10.17645/pag.v6i1.1214" target="_blank" rel="noopener">Lührmann, A., Tannenberg, M. &amp; Lindberg, S.I. (2018). Regimes of the World (RoW). <em>Politics and Governance 6</em>(1):60–77.</a></li>
           <li>Malczewski, J. (2000). On the use of weighted linear combination method in GIS (가중합). <em>Int. Journal of GIS.</em></li>
           <li>Saaty, T.L. (1980). <em>The Analytic Hierarchy Process.</em> McGraw-Hill.</li>
-          <li>Stein, S. & Wysession, M. (2003). <em>An Introduction to Seismology, Earthquakes, and Earth Structure.</em></li>
-          <li>Lay, T. & Wallace, T. (1995). <em>Modern Global Seismology.</em></li>
-          <li>Çınar, İ. & Çakır, G. et al. Nuclear power plant site selection by WLC in GIS, Edirne, Turkey.</li>
-          <li>IAEA Safety Guide SSG-21. <em>Volcanic Hazards in Site Evaluation for Nuclear Installations.</em> 2012.</li>
+          <li>Stein, S. &amp; Wysession, M. (2003). <em>An Introduction to Seismology, Earthquakes, and Earth Structure.</em></li>
+          <li>Lay, T. &amp; Wallace, T. (1995). <em>Modern Global Seismology.</em></li>
+          <li><a href="https://www.iaea.org/publications/8578/volcanic-hazards-in-site-evaluation-for-nuclear-installations" target="_blank" rel="noopener">IAEA Safety Guide SSG-21. <em>Volcanic Hazards in Site Evaluation for Nuclear Installations.</em> 2012.</a></li>
         </ul>
-
       </div>
     </div>
   </div>
