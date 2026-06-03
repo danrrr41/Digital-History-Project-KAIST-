@@ -161,6 +161,15 @@ footer{padding:40px 24px;text-align:center;color:var(--muted);border-top:1px sol
 @media(max-width:1000px){.case-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.case-grid{grid-template-columns:1fr}}
 
+/* 연도 슬라이더 */
+.yr-ctrl{max-width:1040px;margin:0 auto;padding:10px 8px 4px;background:var(--bg2);
+  border:1px solid var(--line);border-top:none;border-radius:0 0 12px 12px}
+.yr-ctrl-row{display:flex;align-items:center;gap:14px}
+.yr-val{font-size:1.6rem;font-weight:800;color:var(--accent);min-width:60px;text-align:right;line-height:1}
+#yr-slider{flex:1;accent-color:var(--accent);height:4px;cursor:pointer}
+.yr-info{font-size:.85rem;color:var(--muted);min-width:90px}
+.yr-hint{font-size:.82rem;color:var(--muted);margin:6px 0 0;text-align:center}
+
 /* 데이터 테이블 */
 .dt-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
 .dt-intro{font-size:1.06rem;line-height:1.85;color:#d4dde8;margin:0 0 18px}

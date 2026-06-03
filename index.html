@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=25" />
+<link rel="stylesheet" href="css/style.css?v=26" />
 </head>
 <body>
 <div id="progress"></div>
@@ -174,6 +174,14 @@
     </div>
   </div>
   <div id="map-context" class="map"></div>
+  <div class="yr-ctrl" id="yr-ctrl">
+    <div class="yr-ctrl-row">
+      <span class="yr-val" id="yr-val">2025</span>
+      <input type="range" id="yr-slider" min="1956" max="2025" value="2025" step="1" />
+      <span class="yr-info" id="yr-info"></span>
+    </div>
+    <p class="yr-hint">슬라이더를 움직이면 해당 연도까지 건설된 원전과 그 시기의 인구밀도를 확인할 수 있다. 인구 데이터는 10년 단위로 제공된다.</p>
+  </div>
 </section>
 
 <!-- 4. HEATMAP -->
@@ -474,6 +482,6 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="js/app.js?v=16"></script>
+<script src="js/app.js?v=17"></script>
 </body>
 </html>

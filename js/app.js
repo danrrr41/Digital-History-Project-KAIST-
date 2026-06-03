@@ -53,6 +53,16 @@ function fitWidth(m){
 
 let mapCtx, mapFinal, IMG_BOUNDS, IMG_BOUNDS_E;
 const overlays = {};
+let popLayerL, popLayerR;  // 인구 오버레이 개별 레이어(연도별 교체용)
+let timelinePlants = [];   // 전체 원전 목록(슬라이더 필터용)
+
+// 연도 → GHS-POP 파일명 매핑
+const POP_DEC = [1975, 1980, 1990, 2000, 2010, 2020];
+function popUrl(year){
+  let best = 1975;
+  for (const py of POP_DEC) { if (py <= year) best = py; }
+  return OVL + `layer_pop_${best}.png`;
+}
 
 // 오버레이를 원본(-180~180)과 +360 복제본으로 동시에 깔아 태평양 중심에서 양쪽 모두 채움
 function overlayGroup(file, opacity){
@@ -79,17 +89,38 @@ async function init(){
 
   /* ===== Map 1: 맥락 ===== */
   mapCtx = makeMap("map-context");
-  overlays.pop   = overlayGroup(OVL+"layer_population.png", 0.9).addTo(mapCtx);
-  overlays.seis  = overlayGroup(OVL+"layer_seismic.png",    0.95).addTo(mapCtx);
-  overlays.water = overlayGroup(OVL+"layer_water.png",      0.9).addTo(mapCtx);
+  // 인구 오버레이 — setUrl로 연도 교체 가능하게 개별 레이어로 저장
+  popLayerL = L.imageOverlay(OVL+"layer_pop_2020.png", IMG_BOUNDS, {opacity:0.9});
+  popLayerR = L.imageOverlay(OVL+"layer_pop_2020.png", IMG_BOUNDS_E, {opacity:0.9});
+  overlays.pop = L.layerGroup([popLayerL, popLayerR]).addTo(mapCtx);
+  overlays.seis  = overlayGroup(OVL+"layer_seismic.png",  0.95).addTo(mapCtx);
+  overlays.water = overlayGroup(OVL+"layer_water.png",    0.9).addTo(mapCtx);
 
-  const plantLayer1 = L.layerGroup().addTo(mapCtx);
-  addPlantMarkers(plantLayer1, plants,
-    () => ({radius:3,color:"#111",weight:0.6,fillColor:"#ffd400",fillOpacity:0.95}), null);
+  // 슬라이더용 원전 레이어(연도별 필터)
+  timelinePlants = plants;
+  const timelineLayer = L.layerGroup().addTo(mapCtx);
+  function updateTimeline(year){
+    timelineLayer.clearLayers();
+    const shown = plants.filter(p => !p.year || p.year <= year);
+    addPlantMarkers(timelineLayer, shown,
+      () => ({radius:3, color:"#111", weight:0.6, fillColor:"#ffd400", fillOpacity:0.95}), null);
+    document.getElementById("yr-val").textContent = year;
+    document.getElementById("yr-info").textContent = `${shown.length}기 표시`;
+    // 인구 오버레이 교체
+    if (document.getElementById("t-pop").checked){
+      popLayerL.setUrl(popUrl(year));
+      popLayerR.setUrl(popUrl(year));
+    }
+  }
+
+  // 슬라이더 이벤트
+  const slider = document.getElementById("yr-slider");
+  slider.addEventListener("input", ()=> updateTimeline(+slider.value));
+  updateTimeline(2025); // 초기: 전체 표시
 
   bindToggle("t-pop","pop"); bindToggle("t-seis","seis"); bindToggle("t-water","water");
-  document.getElementById("t-plants1").addEventListener("change",e=>{
-    e.target.checked ? plantLayer1.addTo(mapCtx) : mapCtx.removeLayer(plantLayer1);
+  document.getElementById("t-plants1").addEventListener("change", e=>{
+    e.target.checked ? timelineLayer.addTo(mapCtx) : mapCtx.removeLayer(timelineLayer);
   });
 
   /* ===== Map 2: 최종 적합도 + 원전 클릭 ===== */
