@@ -163,11 +163,10 @@ footer{padding:40px 24px;text-align:center;color:var(--muted);border-top:1px sol
 
 /* 데이터 테이블 */
 .dt-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
-#dt-search{flex:1;min-width:180px;background:#1a2130;border:1px solid var(--line);border-radius:8px;
+.dt-intro{font-size:1.06rem;line-height:1.85;color:#d4dde8;margin:0 0 18px}
+#dt-search{flex:1;min-width:200px;background:#1a2130;border:1px solid var(--line);border-radius:8px;
   padding:8px 12px;color:#fff;font-size:.9rem;outline:none}
 #dt-search:focus{border-color:var(--accent)}
-#dt-regime{background:#1a2130;border:1px solid var(--line);border-radius:8px;padding:8px 10px;
-  color:#fff;font-size:.9rem;outline:none;cursor:pointer}
 .dt-count{font-size:.85rem;color:var(--muted);margin-left:4px}
 .dt-btn{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:8px 14px;
   color:var(--accent);font-size:.85rem;cursor:pointer;font-family:inherit}

@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=24" />
+<link rel="stylesheet" href="css/style.css?v=25" />
 </head>
 <body>
 <div id="progress"></div>
@@ -379,18 +379,11 @@
   <div class="wrap reveal">
     <span class="kicker">08 — 데이터 공개</span>
     <h2>원전 데이터 공개</h2>
-    <p class="intro">이 프로젝트에서 산출한 233기 원전의 5요소 점수와 거리 데이터를 공개한다.
-       열 제목을 클릭하면 해당 열 기준으로 정렬되며, 검색·필터로 범위를 좁힐 수 있다.
+    <p class="dt-intro">이 프로젝트에서 산출한 233기 원전의 5요소 점수와 거리 데이터를 공개한다.
+       열 제목을 클릭하면 해당 열 기준으로 정렬되며, 검색으로 범위를 좁힐 수 있다.
        원본 데이터를 CSV로 내려받아 직접 분석하는 것도 가능하다.</p>
     <div class="dt-controls">
       <input id="dt-search" type="text" placeholder="원전명 또는 국가 검색…" autocomplete="off" />
-      <select id="dt-regime">
-        <option value="">전체 정치체제</option>
-        <option value="0">폐쇄독재</option>
-        <option value="1">선거독재</option>
-        <option value="2">선거민주</option>
-        <option value="3">자유민주</option>
-      </select>
       <span id="dt-count" class="dt-count"></span>
       <button id="dt-csv" class="dt-btn">⬇ CSV 다운로드</button>
     </div>
@@ -481,6 +474,6 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="js/app.js?v=15"></script>
+<script src="js/app.js?v=16"></script>
 </body>
 </html>

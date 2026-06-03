@@ -205,10 +205,8 @@ init().catch(err=>{
 
   function render(){
     const q=(document.getElementById("dt-search").value||"").toLowerCase();
-    const rFilter=document.getElementById("dt-regime").value;
     const rows=_sorted.filter(p=>{
       if(q&&!(p.name||"").toLowerCase().includes(q)&&!(p.country||"").toLowerCase().includes(q)) return false;
-      if(rFilter!==""&&String(p.regime)!==rFilter) return false;
       return true;
     });
     document.getElementById("dt-count").textContent=`${rows.length} / ${_plants.length}기`;
@@ -237,10 +235,8 @@ init().catch(err=>{
 
   function csvDownload(){
     const q=(document.getElementById("dt-search").value||"").toLowerCase();
-    const rFilter=document.getElementById("dt-regime").value;
     const rows=_sorted.filter(p=>{
       if(q&&!(p.name||"").toLowerCase().includes(q)&&!(p.country||"").toLowerCase().includes(q)) return false;
-      if(rFilter!==""&&String(p.regime)!==rFilter) return false;
       return true;
     });
     const header=COLS.map(c=>c.label).join(",");
@@ -258,7 +254,6 @@ init().catch(err=>{
     _sorted=[...plants].sort((a,b)=>((b.final||0)-(a.final||0)));
     render();
     document.getElementById("dt-search").addEventListener("input", render);
-    document.getElementById("dt-regime").addEventListener("change", render);
     document.getElementById("dt-csv").addEventListener("click", csvDownload);
     document.querySelectorAll("#dt-table th[data-col]").forEach(th=>
       th.addEventListener("click",()=>sort(th.dataset.col)));
