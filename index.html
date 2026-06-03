@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=23" />
+<link rel="stylesheet" href="css/style.css?v=24" />
 </head>
 <body>
 <div id="progress"></div>
@@ -25,6 +25,7 @@
     <a href="#s-explore">탐구</a>
     <a href="#s-cases">사례</a>
     <a href="#s-conclusion">결론</a>
+    <a href="#s-data">데이터</a>
     <a href="#s-ai">참고문헌</a>
   </div>
 </nav>
@@ -373,10 +374,59 @@
   </div>
 </section>
 
-<!-- 7. AI 사용 및 Reference -->
+<!-- 8. 데이터 공개 -->
+<section class="block" id="s-data">
+  <div class="wrap reveal">
+    <span class="kicker">08 — 데이터 공개</span>
+    <h2>원전 데이터 공개</h2>
+    <p class="intro">이 프로젝트에서 산출한 233기 원전의 5요소 점수와 거리 데이터를 공개한다.
+       열 제목을 클릭하면 해당 열 기준으로 정렬되며, 검색·필터로 범위를 좁힐 수 있다.
+       원본 데이터를 CSV로 내려받아 직접 분석하는 것도 가능하다.</p>
+    <div class="dt-controls">
+      <input id="dt-search" type="text" placeholder="원전명 또는 국가 검색…" autocomplete="off" />
+      <select id="dt-regime">
+        <option value="">전체 정치체제</option>
+        <option value="0">폐쇄독재</option>
+        <option value="1">선거독재</option>
+        <option value="2">선거민주</option>
+        <option value="3">자유민주</option>
+      </select>
+      <span id="dt-count" class="dt-count"></span>
+      <button id="dt-csv" class="dt-btn">⬇ CSV 다운로드</button>
+    </div>
+    <div class="dt-wrap">
+      <table id="dt-table" class="dt">
+        <thead>
+          <tr>
+            <th data-col="name" data-type="str">원전명</th>
+            <th data-col="country" data-type="str">국가</th>
+            <th data-col="year" data-type="num">건설연도</th>
+            <th data-col="lat" data-type="num">위도</th>
+            <th data-col="lon" data-type="num">경도</th>
+            <th data-col="seismic" data-type="num">지진점수</th>
+            <th data-col="d_fault_km" data-type="num">단층거리(km)</th>
+            <th data-col="water" data-type="num">수원점수</th>
+            <th data-col="d_water_km" data-type="num">수원거리(km)</th>
+            <th data-col="population" data-type="num">인구점수</th>
+            <th data-col="d_pop_km" data-type="num">인구거리(km)</th>
+            <th data-col="flood" data-type="num">홍수점수</th>
+            <th data-col="elev_m" data-type="num">고도(m)</th>
+            <th data-col="volcano" data-type="num">화산점수</th>
+            <th data-col="d_volcano_km" data-type="num">화산거리(km)</th>
+            <th data-col="regime_label" data-type="str">정치체제</th>
+            <th data-col="final" data-type="num">종합점수</th>
+          </tr>
+        </thead>
+        <tbody id="dt-body"><tr><td colspan="17" style="text-align:center;color:#9aa7b8;padding:24px">데이터 로딩 중…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. AI 사용 및 Reference -->
 <section class="block alt" id="s-ai">
   <div class="wrap reveal">
-    <span class="kicker">08 — 부록</span>
+    <span class="kicker">09 — 부록</span>
     <h2>AI 사용 및 Reference <span style="font-size:.78rem;font-weight:400;color:var(--muted)">— 논문·데이터 항목 클릭 시 원문 페이지로 이동</span></h2>
 
     <div class="ref-grid">
@@ -431,6 +481,6 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="js/app.js?v=14"></script>
+<script src="js/app.js?v=15"></script>
 </body>
 </html>

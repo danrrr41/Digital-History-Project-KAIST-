@@ -103,6 +103,7 @@ async function init(){
   buildLegend();
   observeMapResize();
   window._maps = {ctx:mapCtx, final:mapFinal};
+  if(window._initDataTable) window._initDataTable(plants);
 }
 
 function bindToggle(checkboxId, key){
@@ -169,6 +170,101 @@ init().catch(err=>{
   console.error(err);
   document.getElementById("plant-detail").innerHTML="<p class='ph'>데이터 로드 실패 — 로컬 서버(python -m http.server)로 열어주세요.</p>";
 });
+
+/* ---- 데이터 테이블 ---- */
+(function dataTable(){
+  const COLS = [
+    {k:"name",      label:"원전명"},
+    {k:"country",   label:"국가"},
+    {k:"year",      label:"건설연도"},
+    {k:"lat",       label:"위도"},
+    {k:"lon",       label:"경도"},
+    {k:"seismic",   label:"지진점수",    score:true},
+    {k:"d_fault_km",label:"단층거리(km)"},
+    {k:"water",     label:"수원점수",    score:true},
+    {k:"d_water_km",label:"수원거리(km)"},
+    {k:"population",label:"인구점수",    score:true},
+    {k:"d_pop_km",  label:"인구거리(km)"},
+    {k:"flood",     label:"홍수점수",    score:true},
+    {k:"elev_m",    label:"고도(m)"},
+    {k:"volcano",   label:"화산점수",    score:true},
+    {k:"d_volcano_km",label:"화산거리(km)"},
+    {k:"regime_label",label:"정치체제"},
+    {k:"final",     label:"종합점수",    score:true},
+  ];
+  const RL = {0:"폐쇄독재",1:"선거독재",2:"선거민주",3:"자유민주"};
+  let _plants=[], _sorted=[], _sortCol="final", _sortDir=-1;
+
+  function fmt(v,k){
+    if(v===null||v===undefined) return "—";
+    if(k==="regime_label") return RL[Math.round(v)]||v||"—";
+    if(typeof v==="number") return (Number.isInteger(v)&&!k.includes("km")&&k!=="lat"&&k!=="lon")?v:parseFloat(v).toFixed(1);
+    return v;
+  }
+  function regimeClass(p){return p.regime!=null?"regime-"+p.regime:"";}
+
+  function render(){
+    const q=(document.getElementById("dt-search").value||"").toLowerCase();
+    const rFilter=document.getElementById("dt-regime").value;
+    const rows=_sorted.filter(p=>{
+      if(q&&!(p.name||"").toLowerCase().includes(q)&&!(p.country||"").toLowerCase().includes(q)) return false;
+      if(rFilter!==""&&String(p.regime)!==rFilter) return false;
+      return true;
+    });
+    document.getElementById("dt-count").textContent=`${rows.length} / ${_plants.length}기`;
+    const tbody=document.getElementById("dt-body");
+    if(!rows.length){tbody.innerHTML=`<tr><td colspan="${COLS.length}" style="text-align:center;padding:18px;color:#9aa7b8">검색 결과 없음</td></tr>`;return;}
+    tbody.innerHTML=rows.map(p=>`<tr>${COLS.map(c=>{
+      const v=p[c.k];
+      const cls=(c.k==="regime_label"?regimeClass(p):"")+(c.score?" score":"");
+      return `<td class="${cls}">${fmt(v,c.k)}</td>`;
+    }).join("")}</tr>`).join("");
+  }
+
+  function sort(col){
+    if(_sortCol===col) _sortDir*=-1; else{_sortCol=col;_sortDir=-1;}
+    const isNum=typeof(_plants[0]&&_plants[0][col])==="number";
+    _sorted=[..._plants].sort((a,b)=>{
+      const av=a[col]??-Infinity, bv=b[col]??-Infinity;
+      return isNum?(av-bv)*_sortDir:String(av).localeCompare(String(bv),"ko")*_sortDir;
+    });
+    document.querySelectorAll("#dt-table th").forEach(th=>{
+      th.classList.remove("asc","desc");
+      if(th.dataset.col===col) th.classList.add(_sortDir===1?"asc":"desc");
+    });
+    render();
+  }
+
+  function csvDownload(){
+    const q=(document.getElementById("dt-search").value||"").toLowerCase();
+    const rFilter=document.getElementById("dt-regime").value;
+    const rows=_sorted.filter(p=>{
+      if(q&&!(p.name||"").toLowerCase().includes(q)&&!(p.country||"").toLowerCase().includes(q)) return false;
+      if(rFilter!==""&&String(p.regime)!==rFilter) return false;
+      return true;
+    });
+    const header=COLS.map(c=>c.label).join(",");
+    const body=rows.map(p=>COLS.map(c=>{
+      const v=fmt(p[c.k],c.k); return `"${String(v).replace(/"/g,'""')}"`;
+    }).join(",")).join("\n");
+    const blob=new Blob(["﻿"+header+"\n"+body],{type:"text/csv;charset=utf-8;"});
+    const a=Object.assign(document.createElement("a"),{href:URL.createObjectURL(blob),download:"nuclear_siting_scores.csv"});
+    a.click();
+  }
+
+  // 초기화는 plants 로드 후 호출
+  window._initDataTable = function(plants){
+    _plants=plants;
+    _sorted=[...plants].sort((a,b)=>((b.final||0)-(a.final||0)));
+    render();
+    document.getElementById("dt-search").addEventListener("input", render);
+    document.getElementById("dt-regime").addEventListener("change", render);
+    document.getElementById("dt-csv").addEventListener("click", csvDownload);
+    document.querySelectorAll("#dt-table th[data-col]").forEach(th=>
+      th.addEventListener("click",()=>sort(th.dataset.col)));
+    sort("final"); // 초기 정렬: 종합점수 내림차순
+  };
+})();
 
 /* ---- 마진 주석: 마커 높이에 맞춰 오른쪽 여백에 정렬 ---- */
 function placeSidenotes(){
