@@ -113,9 +113,31 @@ async function init(){
     }
   }
 
-  // 슬라이더 이벤트
+  // 슬라이더 + 자동 재생
   const slider = document.getElementById("yr-slider");
-  slider.addEventListener("input", ()=> updateTimeline(+slider.value));
+  const playBtn = document.getElementById("yr-play");
+  let playTimer = null;
+
+  function stopPlay(){
+    if(playTimer){ clearInterval(playTimer); playTimer=null; }
+    playBtn.textContent="▶"; playBtn.classList.remove("playing");
+  }
+  function startPlay(){
+    stopPlay();
+    playBtn.textContent="⏸"; playBtn.classList.add("playing");
+    // 맨 처음으로 되감기
+    let yr = 1956;
+    slider.value = yr; updateTimeline(yr);
+    playTimer = setInterval(()=>{
+      yr++;
+      slider.value = yr; updateTimeline(yr);
+      if(yr >= 2025) stopPlay();
+    }, 80);  // 80ms/년 → 약 5.5초 완주
+  }
+  playBtn.addEventListener("click", ()=>{
+    if(playTimer) stopPlay(); else startPlay();
+  });
+  slider.addEventListener("input", ()=>{ stopPlay(); updateTimeline(+slider.value); });
   updateTimeline(2025); // 초기: 전체 표시
 
   bindToggle("t-pop","pop"); bindToggle("t-seis","seis"); bindToggle("t-water","water");
