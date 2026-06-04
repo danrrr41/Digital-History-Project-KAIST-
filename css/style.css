@@ -40,6 +40,17 @@ figure.wide figcaption,.figrow figcaption{color:var(--muted);font-size:.86rem;ma
 .figrow img{width:100%;border-radius:10px;background:#fff;border:1px solid var(--line)}
 @media(max-width:760px){#nav .navlinks{gap:10px}#nav .navlinks a{font-size:.8rem}.figrow{grid-template-columns:1fr}}
 
+/* 두괄식 요약 */
+.tl-first{background:linear-gradient(135deg,#0e1a10,#0e1116);border-top:none}
+.tl-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin:18px 0 22px}
+.tl-card{display:flex;align-items:flex-start;gap:14px;background:rgba(76,195,138,.07);
+  border:1px solid rgba(76,195,138,.25);border-radius:12px;padding:16px}
+.tl-icon{font-size:1.8rem;flex-shrink:0;line-height:1}
+.tl-card b{display:block;color:#fff;font-size:.97rem;margin-bottom:5px}
+.tl-card p{font-size:.87rem;color:#9aa7b8;margin:0;line-height:1.6}
+.tl-hint{text-align:center;color:var(--muted);font-size:.84rem;margin:0}
+@media(max-width:860px){.tl-cards{grid-template-columns:1fr}}
+
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
   background:radial-gradient(1200px 600px at 70% 20%,#1b2433,#0e1116);text-align:center;padding:40px}
@@ -160,6 +171,17 @@ footer{padding:40px 24px;text-align:center;color:var(--muted);border-top:1px sol
 .case-desc b{color:#fff}
 @media(max-width:1000px){.case-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.case-grid{grid-template-columns:1fr}}
+
+/* 두괄식 결론 블록 */
+.tl-first{background:linear-gradient(135deg,#0e1a14,#0e1116)}
+.tl-cards{display:flex;flex-direction:column;gap:16px;margin:20px 0}
+.tl-card{display:flex;align-items:flex-start;gap:16px;background:rgba(76,195,138,.07);
+  border:1px solid rgba(76,195,138,.25);border-radius:12px;padding:18px 20px}
+.tl-icon{font-size:1.6rem;flex-shrink:0;line-height:1.4}
+.tl-card b{display:block;color:#fff;font-size:1.05rem;margin-bottom:5px}
+.tl-card p{font-size:.95rem;color:#cdd7e3;margin:0;line-height:1.7}
+.tl-hint{font-size:.86rem;color:var(--muted);text-align:center;margin-top:4px}
+@media(max-width:600px){.tl-card{flex-direction:column;gap:8px}}
 
 /* 연도 슬라이더 */
 .yr-ctrl{max-width:1040px;margin:0 auto;padding:10px 8px 4px;background:var(--bg2);

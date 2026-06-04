@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=29" />
+<link rel="stylesheet" href="css/style.css?v=30" />
 </head>
 <body>
 <div id="progress"></div>
@@ -40,8 +40,44 @@
   </div>
 </header>
 
+<!-- 결론 먼저 (두괄식) -->
+<section class="block tl-first" id="s-tl">
+  <div class="wrap reveal narrow">
+    <span class="kicker">결론 먼저 읽기</span>
+    <h2>세 줄 요약</h2>
+    <div class="tl-cards">
+      <div class="tl-card">
+        <div class="tl-icon">📐</div>
+        <div>
+          <b>점수가 낮은 자리에 사고가 많았다</b>
+          <p>상업용 원전의 이상적 입지를 지진·수원·인구·홍수·화산 다섯 잣대로 점수화했다.
+             주요 사고 발생 원전의 평균 점수(66.6점)는 전체 평균(71.6점)보다 낮았다.</p>
+        </div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-icon">🏛️</div>
+        <div>
+          <b>권위주의 국가가 더 낮은 점수의 자리를 선택했다</b>
+          <p>가장 낮은 적합도 구간(20–40점)의 57%가 폐쇄적 독재 국가의 건설이다.
+             권위주의는 반대 비용(NIMBY)이 낮아 인구 가까이, 위험한 자리에 짓는 경향을 보였다.</p>
+        </div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-icon">💥</div>
+        <div>
+          <b>대형 사고 이후에도 입지 방식은 바뀌지 않았다</b>
+          <p>TMI·체르노빌·후쿠시마 이후를 비교해도 원전이 더 안전한 자리로 이동한 흔적은 없다.
+             사고보다 '누가 짓는가'(정치체제)가 입지를 결정하는 더 강한 변수였다.</p>
+        </div>
+      </div>
+    </div>
+    <p class="tl-hint">아래로 스크롤하면 데이터와 근거를 순서대로 확인할 수 있다.</p>
+  </div>
+</section>
+
+
 <!-- QUESTION -->
-<section class="block" id="s-q">
+<section class="block alt" id="s-q">
   <div class="wrap reveal narrow">
     <span class="kicker">여는 글</span>
     <h2>프로젝트의 질문</h2>
@@ -463,6 +499,6 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="js/app.js?v=20"></script>
+<script src="js/app.js?v=21"></script>
 </body>
 </html>
