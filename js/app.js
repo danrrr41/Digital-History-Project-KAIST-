@@ -157,6 +157,19 @@ async function init(){
   observeMapResize();
   window._maps = {ctx:mapCtx, final:mapFinal};
   if(window._initDataTable) window._initDataTable(plants);
+
+  // 사례 카드 클릭 → 결과 지도(s-heatmap)로 이동 + 해당 원전 상세 열기
+  const byName = {}; plants.forEach(p => byName[p.name] = p);
+  document.querySelectorAll(".case-card[data-plant]").forEach(card => {
+    card.addEventListener("click", () => {
+      const p = byName[card.dataset.plant]; if(!p) return;
+      document.getElementById("s-heatmap").scrollIntoView({behavior:"smooth", block:"start"});
+      setTimeout(() => {
+        showDetail(p);
+        if(mapFinal){ mapFinal.setView([p.lat, p.lon], Math.max(mapFinal.getZoom(), 4)); }
+      }, 600);
+    });
+  });
 }
 
 function bindToggle(checkboxId, key){
@@ -175,24 +188,16 @@ function showDetail(p){
   const regBadge = reg!=null
     ? `<span class="badge" style="background:${REGIME_COLOR[reg]}33;color:${REGIME_COLOR[reg]};border:1px solid ${REGIME_COLOR[reg]}">${REGIME_LABEL[reg]}</span>`
     : `<span class="badge" style="background:#333;color:#aaa">체제 정보 없음</span>`;
-  const reasonHtml = p.reason
-    ? `<div class="dreason"><div class="rh">왜 이곳에 지었나</div><p>${p.reason}</p>${
-        (p.sources && p.sources.length)
-          ? `<div class="rsrc">출처: ${p.sources.slice(0,3).map((u,i)=>`<a href="${u}" target="_blank" rel="noopener">[${i+1}]</a>`).join(" ")}</div>` : ""
-      }</div>`
-    : `<div class="dreason muted">입지 이유: 신뢰할 출처를 아직 확보하지 못함(미표기)</div>`;
   document.getElementById("plant-detail").innerHTML = `
     <div class="dname">${p.name}</div>
     <div class="dmeta">${p.country} · 건설 ${p.year||"?"}</div>
     <div class="dfinal" style="color:${scoreColor(p.final)}">${p.final.toFixed(1)}<span style="font-size:.9rem;color:#9aa7b8"> / 100</span></div>
-    <div style="color:#9aa7b8;font-size:.85rem;margin-bottom:14px">최종 적합도 (5요소 가중합)</div>
     ${bar("지진 안전", p.seismic)}
     ${bar("수원 근접", p.water)}
     ${bar("인구 이격", p.population)}
     ${bar("홍수 안전", p.flood)}
     ${bar("화산 안전", p.volcano)}
     <div style="margin-top:14px">건설 당시 정치체제: ${regBadge}</div>
-    ${reasonHtml}
     <div class="dlist">
       가장 가까운 단층/판경계: <b>${p.d_fault_km} km</b><br>
       가장 가까운 수원: <b>${p.d_water_km} km</b><br>
@@ -246,7 +251,7 @@ init().catch(err=>{
     {k:"final",     label:"종합점수",    score:true},
   ];
   const RL = {0:"폐쇄독재",1:"선거독재",2:"선거민주",3:"자유민주"};
-  let _plants=[], _sorted=[], _sortCol="final", _sortDir=-1;
+  let _plants=[], _sorted=[], _sortCol="final", _sortDir=-1, _hidden=new Set();
 
   function fmt(v,k){
     if(v===null||v===undefined) return "—";
@@ -268,7 +273,7 @@ init().catch(err=>{
     tbody.innerHTML=rows.map(p=>`<tr>${COLS.map(c=>{
       const v=p[c.k];
       const cls=(c.k==="regime_label"?regimeClass(p):"")+(c.score?" score":"");
-      return `<td class="${cls}">${fmt(v,c.k)}</td>`;
+      return `<td class="${cls}"${_hidden.has(c.k)?' style="display:none"':''}>${fmt(v,c.k)}</td>`;
     }).join("")}</tr>`).join("");
   }
 
@@ -301,6 +306,22 @@ init().catch(err=>{
     a.click();
   }
 
+  function applyColVis(){
+    document.querySelectorAll("#dt-table th[data-col]").forEach(th=>{
+      th.style.display=_hidden.has(th.dataset.col)?"none":"";
+    });
+  }
+  function buildColMenu(){
+    const menu=document.getElementById("dt-colmenu"); if(!menu) return;
+    menu.innerHTML=COLS.map(c=>`<label><input type="checkbox" data-col="${c.k}" checked> ${c.label}</label>`).join("");
+    menu.querySelectorAll("input").forEach(inp=>inp.addEventListener("change",()=>{
+      inp.checked?_hidden.delete(inp.dataset.col):_hidden.add(inp.dataset.col);
+      applyColVis(); render();
+    }));
+    const btn=document.getElementById("dt-cols");
+    if(btn) btn.addEventListener("click",()=>{ menu.hidden=!menu.hidden; });
+  }
+
   // 초기화는 plants 로드 후 호출
   window._initDataTable = function(plants){
     _plants=plants;
@@ -310,6 +331,7 @@ init().catch(err=>{
     document.getElementById("dt-csv").addEventListener("click", csvDownload);
     document.querySelectorAll("#dt-table th[data-col]").forEach(th=>
       th.addEventListener("click",()=>sort(th.dataset.col)));
+    buildColMenu();
     sort("final"); // 초기 정렬: 종합점수 내림차순
   };
 })();

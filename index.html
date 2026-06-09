@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=30" />
+<link rel="stylesheet" href="css/style.css?v=31" />
 </head>
 <body>
 <div id="progress"></div>
@@ -17,6 +17,7 @@
 <nav id="nav">
   <a class="brand" href="#s-hero" data-en="Geography &amp; History of Nuclear Siting">원자력 입지의 지리·역사</a>
   <div class="navlinks">
+    <a href="#s-hero" data-en="Start">시작</a>
     <a href="#s-q" data-en="Question">질문</a>
     <a href="#s-findings" data-en="Findings">발견</a>
     <a href="#s-scores" data-en="Scores">점수</a>
@@ -79,10 +80,13 @@
       <li data-en="<b>Accidents were more frequent at lower-scoring sites.</b> Plants that suffered major accidents averaged a suitability score of 66.6 — five points below the overall average of 71.6."><b>입지 점수가 낮은 곳에서 사고가 더 잦았다.</b> 주요 사고가 일어난 원전들은
           전체 평균보다 낮은 적합도 점수에 몰려 있었다.</li>
       <li data-en="<b>Authoritarian states chose more dangerous sites.</b> 57% of the lowest-suitability band (20–40 points) was built by closed autocracies, and the link between regime type and siting score is statistically clear (p=0.0003)."><b>권위주의 국가가 더 위험한 자리를 선택했다.</b> 가장 낮은 적합도 구간은 대부분
-          폐쇄적 독재 체제가 건설했으며, 정치체제와 입지 점수의 관계는 통계적으로 뚜렷하다.</li>
+          폐쇄적 독재 체제<sup class="snref" data-note="regime-note">[3]</sup>가 건설했으며, 정치체제와 입지 점수의 관계는 통계적으로 뚜렷하다.</li>
       <li data-en="<b>Even major accidents did not change how sites were chosen.</b> After Three Mile Island, Chernobyl, and Fukushima, there is no sign that reactors moved to safer sites. What divided siting was not the experience of disaster but ‘who builds.’"><b>대형 사고도 입지 방식을 바꾸지 못했다.</b> TMI·체르노빌·후쿠시마 이후에도 원전이 더 안전한
           자리로 옮겨간 흔적은 없다. 입지를 가른 1차 동인은 사고의 경험이 아니라 ‘누가 짓는가’였다.</li>
     </ul>
+    <aside class="sidenote" id="regime-note"><b>[3] 정치체제 4분류</b>
+      정치체제는 V-Dem(민주주의 다양성 연구소)의 ‘세계의 체제(Regimes of the World)’ 4분류를 따랐다 —
+      <b>폐쇄적 독재 · 선거 독재 · 선거 민주주의 · 자유민주주의</b>. 각 원전을 건설 연도·국가 기준으로 매칭했다.</aside>
     <p class="closing" data-en="Below, you can follow the whole path in order — from how the five criteria are scored to the data and evidence behind each finding.">아래 본문에서 구체적인 프로젝트의 진행 과정, 데이터와 근거, 결론까지 순서대로 확인할 수 있다.</p>
   </div>
 </section>
@@ -90,19 +94,24 @@
 <!-- 1. SCORES -->
 <section class="block alt" id="s-scores">
   <div class="wrap reveal">
-    <span class="kicker" data-en="01 — Method">01 — 방법</span>
+    <span class="kicker" data-en="01 — Scores">01 — 점수</span>
     <h2 data-en="Scoring the land on five criteria">다섯 가지 잣대로 토지를 채점하다</h2>
     <p class="intro" style="max-width:none" data-en="We convert the key conditions of reactor siting into 0–100 scores as functions of distance and elevation. This scoring system is designed to evaluate <b>commercial nuclear power plants</b> and does not apply to research or military facilities. Every threshold and curve shape follows U.S. and international regulation and scholarly evidence.">원전 입지의 핵심 조건을 거리와 고도의 함수로 0~100점으로 환산하였다. 이 점수 체계는
        <b>상업용 원자력 발전소</b>를 평가 기준으로 설계되었으며, 연구로나 군사용 시설에는 적용되지 않는다.
        모든 기준선과 곡선의 형태는 미국·국제 규제와 학술 근거에 따랐다.</p>
+    <p style="max-width:none">국제원자력기구(IAEA)의 입지평가 체계(SSG-35)와 전 세계 원전 입지 연구가 공통으로 채택하는
+       <b>표준 기준집합</b>에 따라, 외부 자연재해 회피(지진·홍수·화산)·냉각수 확보(수원)·사고 시 인구 노출(인구)의
+       다섯 항목을 선정하였다. 송전망·도로·토지이용·주민수용성 같은 사회·경제 기준은 전 세계 233기를 공개데이터로
+       일관되게 계산하기 어려워 제외하였다. 아래는 이 다섯 항목을 각각 어떻게 0~100점으로 채점했는지다.</p>
 
     <div class="card">
       <img src="img/seismic_score_curve.png" alt="지진 점수 곡선" />
       <div class="card-body">
         <h3 data-en="① Seismicity — the farther from faults, the safer">① 지진 — 단층에서 멀수록 안전하다</h3>
-        <p data-en="The greatest natural hazard to a reactor is an earthquake. The farther from active faults or plate boundaries, the faster ground shaking weakens. So <b>within 8 km of a fault scores 0</b> and <b>beyond 320 km scores 100</b>, with the range between connected by a curve following the principle that seismic energy decays with the inverse square of distance (body-wave geometric spreading).">원전을 위협하는 가장 큰 자연재해는 지진이다. 활성 단층이나 판 경계에서 멀어질수록 지반이 받는 진동은 빠르게
-           약해진다. 이에 단층 <b>8km 이내는 0점</b>, <b>320km 이상은 100점</b><sup class="snref">1</sup>을 부여하고, 그 사이는 지진 에너지가
-           거리의 제곱에 반비례해 감쇠한다는 원리(체적파 기하확산)에 따라 곡선으로 연결하였다.</p>
+        <p data-en="The greatest natural hazard to a reactor is an earthquake. The farther from active faults or plate boundaries, the faster ground shaking weakens. So <b>within 8 km of a fault scores 0</b> and <b>beyond 320 km scores 100</b>, with the range between connected by a curve following the principle that seismic energy decays with the inverse square of distance (body-wave geometric spreading).">원전을 위협하는 가장 큰 자연재해는 지진이다. 활성 단층(현재도 움직일 수 있는, 지질학적으로 살아 있는 단층)이나
+           판 경계에서 멀어질수록 지반이 받는 진동은 빠르게 약해진다. 이에 단층 <b>8km 이내는 0점</b>, <b>320km 이상은 100점</b><sup class="snref">1</sup>을 부여하고, 그 사이는 지진 에너지가
+           거리의 제곱에 반비례해 감쇠한다는 원리(<b>체적파 기하확산</b> — 지진파가 사방으로 퍼져 나가며 거리에 따라
+           에너지가 옅어지는 현상)에 따라 곡선으로 연결하였다.</p>
       </div>
     </div>
 
@@ -141,7 +150,8 @@
       <img src="img/volcano_score_curve.png" alt="화산 점수 곡선" />
       <div class="card-body">
         <h3 data-en="⑤ Volcano — beyond the reach of eruptions">⑤ 화산 — 분화의 사정거리 밖으로</h3>
-        <p data-en="Active volcanoes cannot be ignored either. Pyroclastic flows and lahars reach tens of kilometers, and ash hundreds. So the nearest (Holocene) volcano <b>within 10 km scores 0</b> and <b>beyond 160 km scores 100</b>.">활화산 역시 간과할 수 없다. 화쇄류와 라하르는 수십 km, 화산재는 수백 km까지 영향을 미친다. 이에 가장 가까운
+        <p data-en="Active volcanoes cannot be ignored either. Pyroclastic flows and lahars reach tens of kilometers, and ash hundreds. So the nearest (Holocene) volcano <b>within 10 km scores 0</b> and <b>beyond 160 km scores 100</b>.">활화산 역시 간과할 수 없다. <b>화쇄류</b>(고온의 화산 가스·암석 조각이 빠르게 흘러내리는 분출물)와
+           <b>라하르</b>(화산재가 물과 섞여 흐르는 토석류)는 수십 km, 화산재는 수백 km까지 영향을 미친다. 이에 가장 가까운
            (홀로세) 화산이 <b>10km 이내이면 0점</b>, <b>160km 이상이면 100점</b><sup class="snref">5</sup>을 부여하였다.</p>
       </div>
     </div>
@@ -160,39 +170,26 @@
 <!-- 2. FINAL -->
 <section class="block" id="s-final">
   <div class="wrap reveal narrow noteanchor">
-    <span class="kicker" data-en="02 — Method">02 — 방법</span>
+    <span class="kicker" data-en="02 — Aggregation">02 — 종합</span>
     <h2 data-en="Combining the five scores into one">다섯 점수를 하나로 통합하다</h2>
-    <p data-en="To combine the five scores, we use a <b>Weighted Linear Combination</b> that multiplies each score by a weight and sums them. It is the most widely used standard method in GIS<sup class='snref' data-note='gis-note'>[1]</sup>-based siting evaluation.">다섯 점수를 통합하기 위해 각 점수에 비중을 곱하여 합산하는 <b>가중합(Weighted Linear Combination)</b>을 사용하였다.
-       GIS<sup class="snref" data-note="gis-note">[3]</sup> 기반
+    <p data-en="To combine the five scores, we use a weighted sum that multiplies each score by a weight and adds them. It is the most widely used standard method in GIS<sup class='snref' data-note='gis-note'>[6]</sup>-based siting evaluation.">다섯 점수를 통합하기 위해 각 점수에 가중치를 곱하여 합산하는 <b>가중합</b>을 사용하였다.
+       GIS<sup class="snref" data-note="gis-note">[4]</sup> 기반
        입지 평가에서 가장 널리 쓰이는 표준 방법이다.</p>
-    <aside class="sidenote" id="gis-note" data-en="<b>[1] What is GIS?</b> Geographic Information System — software for collecting, analyzing, and visualizing maps, satellite imagery, and spatial data. Here it is used to compute siting suitability for land worldwide and to plot reactor locations on the map."><b>[3] GIS(지리정보시스템)란?</b> Geographic Information System.
+    <aside class="sidenote" id="gis-note" data-en="<b>What is GIS?</b> Geographic Information System — software for collecting, analyzing, and visualizing maps, satellite imagery, and spatial data. Here it is used to compute siting suitability for land worldwide and to plot reactor locations on the map."><b>[4] GIS(지리정보시스템)란?</b> Geographic Information System.
       지도·위성·공간 데이터를 수집·분석·시각화하는 소프트웨어 기반 시스템이다.
       이 프로젝트에서는 전 세계 토지의 입지 적합도를 계산하고 원전 위치를 지도에 표현하는 데 활용하였다.</aside>
-    <p data-en="Following the <b>standard criteria set</b> common to the IAEA siting-evaluation framework (SSG-35) and nuclear siting studies worldwide, we selected five factors: avoidance of external natural hazards (seismicity, flood, volcano), securing cooling water (water), and accident-time population exposure (population). Socio-economic criteria such as the transmission grid, roads, land use, and public acceptance were excluded because they cannot be computed consistently from open data across all 233 plants worldwide.">국제원자력기구(IAEA)의 입지평가 체계(SSG-35)와 전 세계 원전 입지 연구가 공통으로 채택하는 <b>표준 기준집합</b>에
-       따라, 외부 자연재해 회피(지진·홍수·화산)·냉각수 확보(수원)·사고 시 인구 노출(인구)의 다섯 항목을 선정하였다.
-       반면 송전망·도로·토지이용·주민수용성 같은 사회·경제 기준은 전 세계 233기를 공개데이터로 일관되게
-       계산하기 어려워 제외하였다.</p>
-    <div class="formula" data-en="S<sub>final</sub> = 0.28·Seismic + 0.22·Water + 0.22·Population + 0.16·Flood + 0.12·Volcano">
-      S<sub>최종</sub> = 0.28·지진 + 0.22·수원 + 0.22·인구 + 0.16·홍수 + 0.12·화산
+    <div class="formula" data-en="Final score = 0.28·Seismic + 0.22·Water + 0.22·Population + 0.16·Flood + 0.12·Volcano">
+      종합점수 = 0.28·지진점수 + 0.22·수원점수 + 0.22·인구점수 + 0.16·홍수점수 + 0.12·화산점수
     </div>
     <p data-en="The weights are set based on the consensus of prior nuclear siting studies. Prioritizing safety, seismicity receives the largest weight of 0.28, water and population 0.22 each, the secondary hazard flood 0.16, and volcano 0.12 — an ordering and hierarchy consistent with existing research.">가중치는 선행 원전 입지 연구들의 가중치 합의에 기반해 설정하였다. 안전을 최우선으로 두어 지진에 가장 큰 0.28,
-       냉각수와 인구에 각 0.22, 부차적 재해인 홍수에 0.16, 화산에 0.12를 부여하였으며, 이 순서와 계층은 기존 연구의
+       수원과 인구에 각 0.22, 부차적 재해인 홍수에 0.16, 화산에 0.12를 부여하였으며, 이 순서와 계층은 기존 연구의
        경향과 일치한다.</p>
     <ul class="findings">
       <li data-en="<b>Seismicity/fault 0.28 — top.</b> Nearly all prior siting studies rank seismicity/geology first (e.g., one study set fault 18% · seismicity 15%, making geological safety the highest combined)."><b>지진·단층 0.28 — 최상위.</b> 거의 모든 선행 입지연구가 지진·지질을 1순위로 둔다(예: 한 연구는
           단층 18%·지진 15%로 지질안전이 합산 최상위).</li>
       <li data-en="<b>Water/population 0.22 each — high.</b> Cooling-water availability and accident-time population exposure recur as core safety and operational factors."><b>수원·인구 각 0.22 — 상위.</b> 냉각수 확보와 사고 시 인구 노출은 안전·운영축의 핵심으로 반복 등장한다.</li>
-      <li data-en="<b>Flood 0.16 · volcano 0.12 — secondary.</b> Included in IAEA external-hazard assessment but placed below the primary hazards."><b>홍수 0.16·화산 0.12 — 부차.</b> IAEA 외부재해 평가에 포함되나, 1차 위험보다 낮은 층위에 둔다.</li>
     </ul>
-    <p class="ref" data-en="Basis — Weighted Linear Combination (WLC) and pairwise comparison (AHP) are the most widely used aggregation and weighting methods in nuclear siting research (systematic review, <i>Cogent Engineering</i> 2024). The criteria set and weight ordering are consistent with the IAEA siting framework (SSG-35), Başkurt &amp; Aydın (2017, Edirne), and AHP/SWARA studies in Indonesia and the Muria Peninsula.">근거 — 가중합(WLC)과 쌍대비교(AHP)는 원전 입지 연구에서 가장 널리 쓰이는 통합·가중 방법이다
-       (체계적 문헌리뷰, <i>Cogent Engineering</i> 2024). 기준집합과 가중치 순서는 IAEA 입지평가 체계(SSG-35),
-       Başkurt &amp; Aydın(2017, Edirne), 인도네시아·무리아 반도 AHP/SWARA 연구 등과 정합한다.</p>
-    <p data-en="One principle applies: a point too close to a hazard already scores 0 on that factor and is automatically penalized, so no separate ‘disqualification’ is added. This avoids <b>double penalization</b> — deducting for the same hazard twice, via both score and disqualification.">한 가지 원칙을 적용하였다. 위험에 지나치게 근접한 지점은 이미 해당 항목 점수가 0이 되어 자동으로 감점되므로,
-       별도의 ‘실격 처리’를 추가하지 않았다. 동일한 위험을 점수와 실격으로 두 번 차감하는 <b>이중 감점</b>을 피하기 위함이다.</p>
-    <figure class="wide">
-      <img src="img/score_curves_combined.png" alt="다섯 점수 곡선 통합" />
-      <figcaption data-en="The five scoring curves and the final aggregation formula. The height each curve reaches equals that factor&#39;s weight.">다섯 잣대의 점수 곡선과 최종 합산식. 각 곡선이 도달하는 높이가 곧 해당 항목의 비중이다.</figcaption>
-    </figure>
+    <p class="src">참고 — 통합·가중 방법(가중합·AHP): Malczewski(2000); Saaty(1980). 기준집합·가중치 순서: 체계적 문헌리뷰(<em>Cogent Engineering</em>, 2024); Başkurt &amp; Aydın(2017, Edirne); 인도네시아·무리아 반도 AHP/SWARA 연구.</p>
   </div>
 </section>
 
@@ -225,10 +222,10 @@
 <!-- 4. HEATMAP -->
 <section class="block" id="s-heatmap">
   <div class="wrap reveal">
-    <span class="kicker" data-en="04 — Result map">04 — 결과 지도</span>
+    <span class="kicker" data-en="04 — Suitability">04 — 적합도</span>
     <h2 data-en="Where is suitable, and where are the reactors?">어디가 적합하며, 원전은 어디에 있는가</h2>
-    <p class="intro" data-en="The final suitability — the sum of the five scores — is visualized across all land worldwide (rescaled to within-land percentiles to prevent color skew: <b>greener is more suitable, redder is less</b>). Actual reactors are plotted as dots on top. Click a dot to see that plant&#39;s five scores, its political regime at construction, and the rationale for its siting with sources.">다섯 점수를 합산한 최종 적합도를 전 세계 육지에 시각화하였다(색의 편중을 막기 위해 육지 내
-       백분위로 재배치 — <b>초록에 가까울수록 적합, 빨강에 가까울수록 부적합</b>). 그 위에 실제 원전을 점으로 표시하였다.
+    <p class="intro" data-en="The final suitability — the sum of the five scores — is visualized across all land worldwide (rescaled to within-land percentiles to prevent color skew: <b>greener is more suitable, redder is less</b>). Actual reactors are plotted as dots on top. Click a dot to see that plant&#39;s five scores, its political regime at construction, and the rationale for its siting with sources.">다섯 점수를 합산한 최종 적합도를 전 세계 육지에 시각화하였다. 색의 편중을 막기 위해, <b>초록에 가까울수록 적합하고
+       빨강에 가까울수록 부적합</b>한 위치가 드러나도록 육지 내 백분위로 재배치했다. 그 위에 실제 원전을 점으로 표시하였다.
        점을 클릭하면 해당 원전의 다섯 점수, 건설 당시 정치체제, 그리고 입지 사유를 출처와 함께 확인할 수 있다.</p>
   </div>
   <div class="map-detail-grid">
@@ -243,19 +240,19 @@
 <!-- 6. 특이 사례 -->
 <section class="block alt" id="s-cases">
   <div class="wrap reveal noteanchor">
-    <span class="kicker" data-en="06 — Notable cases">06 — 특이 사례</span>
+    <span class="kicker" data-en="05 — Notable cases">05 — 사례</span>
     <h2 data-en="Hazards the model caught — three cases">모델이 포착한 위험 — 세 가지 사례</h2>
     <p class="intro" data-en="We check, through concrete cases, how the scoring system aligns with real reactor accidents and crises. Although accident history was not used in designing the model, each case&#39;s risk factors are already reflected in its scores. The INES<sup class='snref' data-note='ines-note'>[2]</sup> level on each card indicates the accident&#39;s severity.">점수 체계가 실제 원전 사고·위기와 어떻게 맞닿아 있는지를 구체 사례로 확인한다.
        모델 설계 시 사고 이력을 참고하지 않았음에도, 각 사례의 위험 요인이 점수표에 이미 반영되어 있다.
-       각 카드의 INES<sup class="snref" data-note="ines-note">[4]</sup> 등급은 사고의 심각도를 나타낸다.</p>
-    <aside class="sidenote" id="ines-note" data-en="<b>[2] What is INES?</b> The International Nuclear Event Scale, established by the IAEA, rates the severity of nuclear accidents and incidents on 8 levels from 0 (no safety significance) to 7 (Chernobyl/Fukushima level). Levels 4–7 are ‘Accidents,’ levels 1–3 ‘Incidents.’"><b>[4] INES(국제 원자력 사건 등급척도)란?</b>
+       각 카드의 INES<sup class="snref" data-note="ines-note">[5]</sup> 등급은 사고의 심각도를 나타낸다.</p>
+    <aside class="sidenote" id="ines-note" data-en="<b>[2] What is INES?</b> The International Nuclear Event Scale, established by the IAEA, rates the severity of nuclear accidents and incidents on 8 levels from 0 (no safety significance) to 7 (Chernobyl/Fukushima level). Levels 4–7 are ‘Accidents,’ levels 1–3 ‘Incidents.’"><b>[5] INES(국제 원자력 사건 등급척도)란?</b>
       International Nuclear Event Scale. IAEA가 제정한 원자력 사고·사건의 심각도 척도로
       0(이상 없음)부터 7(체르노빌·후쿠시마 수준)까지 8단계로 구분된다.
       4~7등급은 '사고(Accident)', 1~3등급은 '사건(Incident)'으로 분류한다.</aside>
 
     <div class="case-grid">
       <!-- 후쿠시마 제1 -->
-      <div class="case-card">
+      <div class="case-card" data-plant="Fukushima Daiichi">
         <div class="case-header">
           <div class="case-tag danger" data-en="Actual accident · INES 7">실제 사고 INES 7</div>
           <div class="case-label" data-en="Earthquake · tsunami">지진 · 쓰나미</div>
@@ -269,11 +266,12 @@
           <div class="cs-row"><span data-en="Volcano safety">화산 안전</span><div class="cs-bar"><div class="cs-fill" style="width:98%;background:#1a9850"></div></div><b class="cs-val">98</b></div>
           <div class="cs-final"><span data-en="Final score">최종 점수</span><b>58.0</b></div>
         </div>
-        <p class="case-desc" data-en="Just <b>7.2 km</b> to a fault → the model flags <b>seismic 0</b>. In 2011 the M9.0 Great East Japan Earthquake and a tsunami up to 15 m flooded the cooling systems, causing core meltdowns. The decision to cut the original 35 m-high site down to 10 m during construction amplified the damage.">단층까지 <b>7.2km</b> → 모델이 <b>지진 0점</b>으로 경고한다. 2011년 동일본 대지진(M9.0)과 최대 15m 쓰나미로 냉각 시스템이 침수, 노심 용융이 발생했다. 건설 당시 원래 35m 고지였던 부지를 10m로 낮춘 결정이 피해를 키웠다.</p>
+        <p class="case-desc" data-en="Just <b>7.2 km</b> to a fault → the model flags <b>seismic 0</b>. In 2011 the M9.0 Great East Japan Earthquake and a tsunami up to 15 m flooded the cooling systems, causing core meltdowns. The decision to cut the original 35 m-high site down to 10 m during construction amplified the damage.">단층까지 <b>7.2km</b> → 모델이 <b>지진 0점</b>으로 경고한다. 2011년 동일본 대지진(M9.0)과 최대 15m 쓰나미로 냉각 시스템이 침수, 노심 용융이 발생했다.</p>
+        <div class="case-golink" data-en="🔍 See this plant on the result map →">🔍 결과 지도에서 이 원전 보기 →</div>
       </div>
 
       <!-- 가시와자키-가리와 -->
-      <div class="case-card">
+      <div class="case-card" data-plant="Kashiwazaki-Kariwa">
         <div class="case-header">
           <div class="case-tag danger" data-en="Actual accident · INES 4">실제 사고 INES 4</div>
           <div class="case-label" data-en="Strong quake (active fault)">강진 (활단층)</div>
@@ -287,11 +285,12 @@
           <div class="cs-row"><span data-en="Volcano safety">화산 안전</span><div class="cs-bar"><div class="cs-fill" style="width:99%;background:#1a9850"></div></div><b class="cs-val">99</b></div>
           <div class="cs-final"><span data-en="Final score">최종 점수</span><b>39.1</b></div>
         </div>
-        <p class="case-desc" data-en="<b>6.7 km</b> to a fault and <b>9 km</b> to a population center → the model double-flags <b>both seismic and population as 0</b>. The 2007 Niigata earthquake (M6.6) caused a radioactive leak and a shutdown lasting until 2019. After construction, an active fault was found directly beneath the site.">단층 <b>6.7km</b>·인구중심 <b>9km</b> → 모델이 <b>지진·인구 모두 0점</b>으로 이중 경고한다. 2007년 니가타현 지진(M6.6)으로 방사성 물질이 누출되었고 2019년까지 가동이 중단됐다. 건설 후 부지 바로 아래에서 활단층이 추가 발견됐다.</p>
+        <p class="case-desc" data-en="<b>6.7 km</b> to a fault and <b>9 km</b> to a population center → the model double-flags <b>both seismic and population as 0</b>. The 2007 Niigata earthquake (M6.6) caused a radioactive leak and a shutdown lasting until 2019. After construction, an active fault was found directly beneath the site.">단층 <b>6.7km</b>·인구중심 <b>9km</b> → 모델이 <b>지진·인구 모두 0점</b>으로 이중 경고한다. 2007년 니가타현 지진(M6.6)으로 방사성 물질이 누출되었고 2019년까지 가동이 중단됐다.</p>
+        <div class="case-golink" data-en="🔍 See this plant on the result map →">🔍 결과 지도에서 이 원전 보기 →</div>
       </div>
 
       <!-- 블라예 -->
-      <div class="case-card">
+      <div class="case-card" data-plant="Blayais">
         <div class="case-header">
           <div class="case-tag warning" data-en="Flood incident · INES 2">침수 사고 INES 2</div>
           <div class="case-label" data-en="Storm surge (flood)">폭풍 해일 (홍수)</div>
@@ -306,6 +305,7 @@
           <div class="cs-final"><span data-en="Final score">최종 점수</span><b>78.6</b></div>
         </div>
         <p class="case-desc" data-en="At the Gironde estuary, only <b>2 m</b> above sea level → the model catches the low-lying risk with <b>flood 8</b>. In 1999 Storm Martin overflowed the river and flooded the cooling-water pumps in a near-miss crisis. It exceeded the design flood basis but was rated only INES 2.">해발 <b>2m</b>의 지롱드 강 하구 → 모델이 <b>홍수 8점</b>으로 저지대 위험을 포착한다. 1999년 마르탱 폭풍으로 강물이 넘쳐 냉각수 펌프가 침수되는 아찔한 위기를 겪었다. 설계 홍수 기준을 초과한 사건이었으나 INES 2등급에 그쳤다.</p>
+        <div class="case-golink" data-en="🔍 See this plant on the result map →">🔍 결과 지도에서 이 원전 보기 →</div>
       </div>
 
     </div>
@@ -322,7 +322,7 @@
   <div class="wrap reveal">
     <span class="kicker" data-en="06 — Conclusion">06 — 결론</span>
     <h2 data-en="Not era, but political regime divided siting">시대가 아니라, 정치체제가 입지를 갈랐다</h2>
-    <p class="intro" data-en="Earlier we computed the ‘ideal location’ on five criteria. But the actual reactors diverged from that ideal systematically, and the divergence had a clear direction. The following five pieces of evidence point to it.">앞서 우리는 다섯 잣대로 ‘이상적인 자리’를 계산했다. 그러나 실제 원전들은 그 이상과
+    <p class="intro" style="max-width:none" data-en="Earlier we computed the ‘ideal location’ on five criteria. But the actual reactors diverged from that ideal systematically, and the divergence had a clear direction. The following five pieces of evidence point to it.">앞서 우리는 다섯 잣대로 ‘이상적인 자리’를 계산했다. 그러나 실제 원전들은 그 이상과
        체계적으로 어긋나 있었고, 어긋남에는 분명한 방향이 있었다. 다음 다섯 가지 증거가 그 방향을 가리킨다.</p>
 
     <!-- ① 점수대 × 정치체제 -->
@@ -421,16 +421,18 @@
 <!-- 8. 데이터 공개 -->
 <section class="block" id="s-data">
   <div class="wrap reveal">
-    <span class="kicker" data-en="08 — Open data">08 — 데이터 공개</span>
-    <h2 data-en="Open reactor data">원전 데이터 공개</h2>
-    <p class="dt-intro" data-en="We release the five-factor scores and distance data computed for all 233 reactors. Click a column header to sort by that column, and use search to narrow the range. You can also download the raw data as CSV and analyze it yourself.">이 프로젝트에서 산출한 233기 원전의 5요소 점수와 거리 데이터를 공개한다.
-       열 제목을 클릭하면 해당 열 기준으로 정렬되며, 검색으로 범위를 좁힐 수 있다.
+    <span class="kicker" data-en="07 — Data">07 — 데이터</span>
+    <h2 data-en="Open project data">프로젝트 데이터 공개</h2>
+    <p class="dt-intro" data-en="We release the five-factor scores and distance data computed for all 233 reactors. Click a column header to sort, choose which columns to show, or use search to narrow the range. You can also download the raw data as CSV.">이 프로젝트에서 산출한 233기 원전의 5요소 점수와 거리 데이터를 공개한다.
+       열 제목을 클릭하면 정렬되고, <b>표시할 열을 선택</b>하거나 검색으로 범위를 좁힐 수 있다.
        원본 데이터를 CSV로 내려받아 직접 분석하는 것도 가능하다.</p>
     <div class="dt-controls">
       <input id="dt-search" type="text" placeholder="원전명 또는 국가 검색…" data-en-ph="Search by plant name or country…" autocomplete="off" />
       <span id="dt-count" class="dt-count"></span>
+      <button id="dt-cols" class="dt-btn" type="button" data-en="▦ Columns">▦ 열 선택</button>
       <button id="dt-csv" class="dt-btn" data-en="⬇ Download CSV">⬇ CSV 다운로드</button>
     </div>
+    <div id="dt-colmenu" class="dt-colmenu" hidden></div>
     <div class="dt-wrap">
       <table id="dt-table" class="dt">
         <thead>
@@ -463,7 +465,7 @@
 <!-- 9. AI 사용 및 Reference -->
 <section class="block alt" id="s-ai">
   <div class="wrap reveal">
-    <span class="kicker" data-en="09 — Appendix">09 — 부록</span>
+    <span class="kicker" data-en="08 — References">08 — 참고문헌</span>
     <h2 data-en="AI Use &amp; References <span style='font-size:.78rem;font-weight:400;color:var(--muted)'>— click a paper or data item to open its source</span>">AI 사용 및 Reference <span style="font-size:.78rem;font-weight:400;color:var(--muted)">— 논문·데이터 항목 클릭 시 원문 페이지로 이동</span></h2>
 
     <div class="ref-grid">
@@ -471,8 +473,7 @@
         <h3 data-en="AI tools used">사용한 AI 도구</h3>
         <p data-en="This project was produced using the following generative AI tools.">이 프로젝트는 다음의 생성형 AI 도구를 활용하여 제작되었다.</p>
         <ul class="reflist">
-          <li data-en="<b>Code &amp; website development, literature/data research &amp; verification</b> (source exploration and checking the relevant content of provided files)<br> Claude Code (Opus 4.8) · Gemini CLI v0.44.1 (Gemini 3 Flash, Gemini 3.1 Pro)"><b>코드 작성·웹사이트 제작, 논문 및 자료 조사·검증</b>
-              (자료 탐색 및 제공한 파일의 해당 내용 확인)<br>
+          <li data-en="<b>Code &amp; website development, literature/data research &amp; verification</b> (source exploration and checking the relevant content of provided files)<br> Claude Code (Opus 4.8) · Gemini CLI v0.44.1 (Gemini 3 Flash, Gemini 3.1 Pro)"><b>코드 작성·웹사이트 제작, 논문 및 자료 조사·검증</b><br>
               Claude Code (Opus 4.8) · Gemini CLI v0.44.1 (Gemini 3 Flash, Gemini 3.1 Pro)</li>
           <li data-en="<b>Refining the project concept and designing the implementation</b><br> Gemini 3.1 Pro Extended"><b>프로젝트 구상 구체화 및 구현 방법 설계</b><br>
               Gemini 3.1 Pro Extended</li>
@@ -484,9 +485,9 @@
         <ul class="reflist">
           <li><a href="https://en.wikipedia.org/wiki/List_of_nuclear_power_stations" target="_blank" rel="noopener">Wikipedia. <em>List of nuclear power stations.</em></a> <span data-en="— source for the locations, construction years, capacities, and operational status of all 233 reactors worldwide.">— 전 세계 원전 233기의 위치·건설연도·용량·운영상태 수집 원천.</span></li>
           <li><a href="https://www.ecfr.gov/current/title-10/chapter-I/part-100" target="_blank" rel="noopener">U.S. NRC. <em>10 CFR Part 100</em>, Reactor Site Criteria, Appendix A.</a></li>
-          <li><a href="https://www.federalregister.gov/documents/2024/02/29/2024-04223" target="_blank" rel="noopener">Federal Register Vol.89 No.41 (2024-02-29), Doc. 2024-04223 — NRC RG 4.7 Rev.4, <em>General Site Suitability Criteria for Nuclear Power Stations.</em></a></li>
+          <li><a href="https://www.federalregister.gov/documents/2024/02/29/2024-04223/regulatory-guide-general-site-suitability-for-nuclear-power-stations" target="_blank" rel="noopener">U.S. NRC. <em>Regulatory Guide: General Site Suitability for Nuclear Power Stations</em> (RG 4.7 Rev.4). Federal Register 89 FR 14743 (2024-02-29), Doc. 2024-04223.</a></li>
           <li><a href="https://www.ecfr.gov/current/title-10/chapter-I/part-50/section-50.33" target="_blank" rel="noopener">U.S. NRC. <em>10 CFR 50.33</em>, Contents of applications — §(g)(1) EPZ.</a></li>
-          <li><a href="https://www.nrc.gov/reading-rm/doc-collections/reg-guides/reactors/rg/01-145.html" target="_blank" rel="noopener">U.S. NRC. <em>Regulatory Guide 1.145</em>, Atmospheric Dispersion Models; NUREG/CR-2260.</a></li>
+          <li><a href="https://www.nrc.gov/reading-rm/doc-collections/nuregs/contract/cr2260/index" target="_blank" rel="noopener">U.S. NRC. <em>Technical Basis for Regulatory Guide 1.145 — Atmospheric Dispersion Models for Potential Accident Consequence Assessments at Nuclear Power Plants</em> (NUREG/CR-2260).</a></li>
           <li><a href="https://ghsl.jrc.ec.europa.eu/ghs_pop2023.php" target="_blank" rel="noopener">GHS-POP R2023A 30″ (Global Human Settlement Layer). European Commission JRC.</a></li>
           <li><a href="https://www.ncei.noaa.gov/products/etopo-global-relief-model" target="_blank" rel="noopener">ETOPO 2022 v1 60″ (Global Relief Model). NOAA NCEI.</a></li>
           <li><a href="https://volcano.si.edu/" target="_blank" rel="noopener">Smithsonian Institution GVP. <em>Volcanoes of the World</em> (Holocene Volcanoes).</a></li>
@@ -494,7 +495,7 @@
           <li><a href="https://github.com/GEMScienceTools/gem-global-active-faults" target="_blank" rel="noopener">GEM Foundation. <em>Global Active Faults Database.</em></a></li>
           <li><a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth 1:10m (coastline, rivers, lakes).</a></li>
           <li><a href="https://v-dem.net/" target="_blank" rel="noopener">V-Dem Institute / Our World in Data. <em>Regimes of the World.</em> University of Gothenburg.</a></li>
-          <li><a href="https://www.iaea.org/topics/ines" target="_blank" rel="noopener">IAEA INES — Nuclear and Radiological Event Scale ratings.</a></li>
+          <li><a href="https://www.iaea.org/resources/databases/international-nuclear-and-radiological-event-scale" target="_blank" rel="noopener">IAEA. <em>International Nuclear and Radiological Event Scale (INES).</em></a></li>
         </ul>
       </div>
 
@@ -505,22 +506,22 @@
           <li><a href="https://doi.org/10.1016/j.sciaf.2019.e00240" target="_blank" rel="noopener">Eleruja, S. et al. (2020). A GIS-based site investigation for NPPs in Nigeria. <em>Scientific African 7</em>:e00240.</a></li>
           <li>Brown, Kate (2013). <em>Plutopia: Nuclear Families, Atomic Cities, and the Great Soviet and American Plutonium Disasters.</em> Oxford University Press.</li>
           <li><a href="https://doi.org/10.17645/pag.v6i1.1214" target="_blank" rel="noopener">Lührmann, A., Tannenberg, M. &amp; Lindberg, S.I. (2018). Regimes of the World (RoW). <em>Politics and Governance 6</em>(1):60–77.</a></li>
-          <li>Malczewski, J. (2000). On the use of weighted linear combination method in GIS <span data-en="(WLC)">(가중합)</span>. <em>Int. Journal of GIS.</em></li>
+          <li><a href="https://doi.org/10.1080/136588100240903" target="_blank" rel="noopener">Malczewski, J. (2000). On the use of weighted linear combination method in GIS. <em>Int. Journal of Geographical Information Science 14</em>(4):523–543.</a></li>
           <li>Saaty, T.L. (1980). <em>The Analytic Hierarchy Process.</em> McGraw-Hill.</li>
           <li>Stein, S. &amp; Wysession, M. (2003). <em>An Introduction to Seismology, Earthquakes, and Earth Structure.</em></li>
           <li>Lay, T. &amp; Wallace, T. (1995). <em>Modern Global Seismology.</em></li>
-          <li><a href="https://www.iaea.org/publications/8578/volcanic-hazards-in-site-evaluation-for-nuclear-installations" target="_blank" rel="noopener">IAEA Safety Guide SSG-21. <em>Volcanic Hazards in Site Evaluation for Nuclear Installations.</em> 2012.</a></li>
+          <li><a href="https://www.iaea.org/publications/8774/volcanic-hazards-in-site-evaluation-for-nuclear-installations" target="_blank" rel="noopener">IAEA Safety Standards Series No. SSG-21. <em>Volcanic Hazards in Site Evaluation for Nuclear Installations.</em> 2012.</a></li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<footer data-en="KAIST Introduction to Digital History · Analysis of the geographic and historical divergence in nuclear power plant siting">KAIST 디지털역사학입문 · 원자력 발전소 입지의 지리적·역사적 괴리 분석</footer>
+<footer data-en="KAIST Introduction to Digital History · Digital History Project (20250367 Seo Seung-jae)">KAIST 디지털역사학입문 · Digital History Project (20250367 서승재)</footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="js/app.js?v=21"></script>
+<script src="js/app.js?v=22"></script>
 <script>
 /* ---- 한/영 전환 (data-en 보유 요소의 innerHTML 스왑) ---- */
 (function(){
