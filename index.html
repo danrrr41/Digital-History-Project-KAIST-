@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<link rel="stylesheet" href="css/style.css?v=31" />
+<link rel="stylesheet" href="css/style.css?v=32" />
 </head>
 <body>
 <div id="progress"></div>
@@ -198,12 +198,14 @@
   <div class="wrap reveal">
     <span class="kicker" data-en="03 — Map">03 — 지도</span>
     <h2 data-en="The world behind the scoring">채점의 재료가 된 세계</h2>
-    <p class="intro" data-en="The three geographic layers used in the scoring are overlaid on the map. Use the toggles below to turn population density, seismic zones, and water on and off. Yellow dots are actual nuclear power plants.">점수 계산에 사용된 세 가지 지리 정보를 지도에 중첩하였다. 아래 항목으로 인구밀도·지진대·수원을
-       켜고 끄며 확인할 수 있다. 노란 점은 실제 원자력 발전소이다.</p>
+    <p class="intro" data-en="The three geographic layers used in the scoring are overlaid on the map. Use the toggles below to turn population density, seismic zones, and water on and off. Yellow dots are actual nuclear power plants.">점수 계산에 사용된 지리 정보를 지도에 중첩하였다. 아래 항목으로 인구밀도·지진대·수원·화산·고도를
+       켜고 끄며 확인할 수 있다(고도 히트맵과 인구밀도는 함께 표시되지 않는다). 노란 점은 실제 원자력 발전소이다.</p>
     <div class="map-toggles">
       <label><input type="checkbox" id="t-pop" checked> <span class="sw pop"></span> <span data-en="Population density">인구밀도</span></label>
       <label><input type="checkbox" id="t-seis" checked> <span class="sw seis"></span> <span data-en="Seismic zones (plate boundaries + active faults)">지진대(판경계+활성단층)</span></label>
       <label><input type="checkbox" id="t-water" checked> <span class="sw water"></span> <span data-en="Water (coast, rivers, lakes)">수원(해안·강·호수)</span></label>
+      <label><input type="checkbox" id="t-volc"> <span class="sw volc"></span> <span data-en="Volcanoes">화산</span></label>
+      <label><input type="checkbox" id="t-elev"> <span class="sw elev"></span> <span data-en="Elevation (heatmap)">고도(히트맵)</span></label>
       <label><input type="checkbox" id="t-plants1" checked> <span class="sw plant"></span> <span data-en="Reactors">원전</span></label>
     </div>
   </div>
@@ -521,7 +523,7 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="js/app.js?v=22"></script>
+<script src="js/app.js?v=23"></script>
 <script>
 /* ---- 한/영 전환 (data-en 보유 요소의 innerHTML 스왑) ---- */
 (function(){

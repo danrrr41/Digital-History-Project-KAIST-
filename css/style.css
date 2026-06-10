@@ -99,6 +99,7 @@ p{margin:0 0 10px}
 .sw{width:16px;height:16px;border-radius:4px;display:inline-block}
 .sw.pop{background:#f06b22}.sw.seis{background:#d90f8c}.sw.water{background:#1f8cff}
 .sw.plant{background:#ffd400;border-radius:50%}
+.sw.volc{background:#ff7300}.sw.elev{background:linear-gradient(135deg,#a9d18e,#7a5a2b)}
 
 /* 결과 지도: 지도(좌) + 상세 패널(우) */
 .map-detail-grid{display:grid;grid-template-columns:1fr 340px;max-width:1140px;margin:14px auto;

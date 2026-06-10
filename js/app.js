@@ -95,6 +95,8 @@ async function init(){
   overlays.pop = L.layerGroup([popLayerL, popLayerR]).addTo(mapCtx);
   overlays.seis  = overlayGroup(OVL+"layer_seismic.png",  0.95).addTo(mapCtx);
   overlays.water = overlayGroup(OVL+"layer_water.png",    0.9).addTo(mapCtx);
+  overlays.volc  = overlayGroup(OVL+"layer_volcano.png",  0.9);   // 기본 꺼짐
+  overlays.elev  = overlayGroup(OVL+"layer_elevation.png",0.85);  // 기본 꺼짐(인구밀도와 상호배타)
 
   // 슬라이더용 원전 레이어(연도별 필터)
   timelinePlants = plants;
@@ -140,7 +142,9 @@ async function init(){
   slider.addEventListener("input", ()=>{ stopPlay(); updateTimeline(+slider.value); });
   updateTimeline(2025); // 초기: 전체 표시
 
-  bindToggle("t-pop","pop"); bindToggle("t-seis","seis"); bindToggle("t-water","water");
+  bindExclusive("t-pop","pop","t-elev","elev");   // 인구밀도 ↔ 고도 상호배타
+  bindExclusive("t-elev","elev","t-pop","pop");
+  bindToggle("t-seis","seis"); bindToggle("t-water","water"); bindToggle("t-volc","volc");
   document.getElementById("t-plants1").addEventListener("change", e=>{
     e.target.checked ? timelineLayer.addTo(mapCtx) : mapCtx.removeLayer(timelineLayer);
   });
@@ -175,6 +179,18 @@ async function init(){
 function bindToggle(checkboxId, key){
   document.getElementById(checkboxId).addEventListener("change", e=>{
     e.target.checked ? overlays[key].addTo(mapCtx) : mapCtx.removeLayer(overlays[key]);
+  });
+}
+// 켜면 상대 레이어를 끈다(상호배타: 인구밀도 ↔ 고도)
+function bindExclusive(id, key, otherId, otherKey){
+  document.getElementById(id).addEventListener("change", e=>{
+    if(e.target.checked){
+      overlays[key].addTo(mapCtx);
+      const o=document.getElementById(otherId);
+      if(o && o.checked){ o.checked=false; mapCtx.removeLayer(overlays[otherKey]); }
+    } else {
+      mapCtx.removeLayer(overlays[key]);
+    }
   });
 }
 
