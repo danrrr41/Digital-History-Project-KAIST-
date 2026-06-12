@@ -4,8 +4,8 @@
 const OVL = "data/overlays/";
 const REGIME_LABEL = {0:"폐쇄독재",1:"선거독재",2:"선거민주",3:"자유민주"};
 const REGIME_LABEL_EN = {0:"Closed autocracy",1:"Electoral autocracy",2:"Electoral democracy",3:"Liberal democracy"};
-// 현재 언어(영/한)에 맞는 문자열
-function L(ko, en){ return document.documentElement.lang === "en" ? en : ko; }
+// 현재 언어(영/한)에 맞는 문자열  (주의: Leaflet 전역 L 과 충돌하므로 이름은 TR)
+function TR(ko, en){ return document.documentElement.lang === "en" ? en : ko; }
 const REGIME_COLOR = {0:"#b2182b",1:"#ef8a62",2:"#67a9cf",3:"#2166ac"};
 
 /* ---- 진행바 ---- */
@@ -206,32 +206,32 @@ let _lastPlant = null;   // 언어 전환 시 패널 재렌더용
 function showDetail(p){
   _lastPlant = p;
   const reg = (p.regime!=null) ? p.regime : null;
-  const regName = reg!=null ? L(REGIME_LABEL[reg], REGIME_LABEL_EN[reg]) : "";
+  const regName = reg!=null ? TR(REGIME_LABEL[reg], REGIME_LABEL_EN[reg]) : "";
   const regBadge = reg!=null
     ? `<span class="badge" style="background:${REGIME_COLOR[reg]}33;color:${REGIME_COLOR[reg]};border:1px solid ${REGIME_COLOR[reg]}">${regName}</span>`
-    : `<span class="badge" style="background:#333;color:#aaa">${L("체제 정보 없음","No regime info")}</span>`;
+    : `<span class="badge" style="background:#333;color:#aaa">${TR("체제 정보 없음","No regime info")}</span>`;
   document.getElementById("plant-detail").innerHTML = `
     <div class="dname">${p.name}</div>
-    <div class="dmeta">${p.country} · ${L("건설","Built")} ${p.year||"?"}</div>
+    <div class="dmeta">${p.country} · ${TR("건설","Built")} ${p.year||"?"}</div>
     <div class="dfinal" style="color:${scoreColor(p.final)}">${p.final.toFixed(1)}<span style="font-size:.9rem;color:#9aa7b8"> / 100</span></div>
-    ${bar(L("지진 안전","Earthquake Safety"), p.seismic)}
-    ${bar(L("수원 근접","Proximity to Water Source"), p.water)}
-    ${bar(L("인구 이격","Population Distance"), p.population)}
-    ${bar(L("홍수 안전","Flood Safety"), p.flood)}
-    ${bar(L("화산 안전","Volcano Safety"), p.volcano)}
-    <div style="margin-top:14px">${L("건설 당시 정치체제","Political System at Construction")}: ${regBadge}</div>
+    ${bar(TR("지진 안전","Earthquake Safety"), p.seismic)}
+    ${bar(TR("수원 근접","Proximity to Water Source"), p.water)}
+    ${bar(TR("인구 이격","Population Distance"), p.population)}
+    ${bar(TR("홍수 안전","Flood Safety"), p.flood)}
+    ${bar(TR("화산 안전","Volcano Safety"), p.volcano)}
+    <div style="margin-top:14px">${TR("건설 당시 정치체제","Political System at Construction")}: ${regBadge}</div>
     <div class="dlist">
-      ${L("가장 가까운 단층/판경계","Nearest Fault/Plate Boundary")}: <b>${p.d_fault_km} km</b><br>
-      ${L("가장 가까운 수원","Nearest Water Source")}: <b>${p.d_water_km} km</b><br>
-      ${L("가장 가까운 인구중심","Nearest Population Center")}: <b>${p.d_pop_km} km</b><br>
-      ${L("해발고도","Elevation")}: <b>${p.elev_m} m</b> · ${L("가장 가까운 화산","Nearest Volcano")}: <b>${p.d_volcano_km} km</b>
+      ${TR("가장 가까운 단층/판경계","Nearest Fault/Plate Boundary")}: <b>${p.d_fault_km} km</b><br>
+      ${TR("가장 가까운 수원","Nearest Water Source")}: <b>${p.d_water_km} km</b><br>
+      ${TR("가장 가까운 인구중심","Nearest Population Center")}: <b>${p.d_pop_km} km</b><br>
+      ${TR("해발고도","Elevation")}: <b>${p.elev_m} m</b> · ${TR("가장 가까운 화산","Nearest Volcano")}: <b>${p.d_volcano_km} km</b>
     </div>`;
 }
 
 function buildLegend(){
   document.getElementById("legend-final").innerHTML =
-    `<span>${L("부적합","Unsuitable")}</span><span class="bar"></span><span>${L("적합","Suitable")}</span>
-     <span style="margin-left:18px">${L("· 마커 색 = 원전 최종점수 · 히트맵 = 육지 백분위",
+    `<span>${TR("부적합","Unsuitable")}</span><span class="bar"></span><span>${TR("적합","Suitable")}</span>
+     <span style="margin-left:18px">${TR("· 마커 색 = 원전 최종점수 · 히트맵 = 육지 백분위",
         "· Marker color = Nuclear power plant final score · Heatmap = Land percentile")}</span>`;
 }
 
