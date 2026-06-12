@@ -354,12 +354,17 @@ init().catch(err=>{
 
 /* ---- 마진 주석: 마커 높이에 맞춰 오른쪽 여백에 정렬 ---- */
 function placeSidenotes(){
+  const lastBottom = new Map();   // 앵커별 직전 노트의 하단 위치(겹침 방지)
   document.querySelectorAll(".snref[data-note]").forEach(ref=>{
     const note = document.getElementById(ref.dataset.note);
     const anchor = note && note.closest(".noteanchor");
     if (!note || !anchor) return;
     if (getComputedStyle(note).position !== "absolute"){ note.style.top = ""; return; }
-    note.style.top = (ref.getBoundingClientRect().top - anchor.getBoundingClientRect().top) + "px";
+    let top = ref.getBoundingClientRect().top - anchor.getBoundingClientRect().top;
+    const prev = lastBottom.get(anchor);
+    if (prev != null && top < prev + 16) top = prev + 16;   // 노트 간 최소 16px 간격
+    note.style.top = top + "px";
+    lastBottom.set(anchor, top + note.offsetHeight);
   });
 }
 addEventListener("load", placeSidenotes);

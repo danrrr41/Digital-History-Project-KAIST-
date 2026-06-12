@@ -81,9 +81,9 @@ p{margin:0 0 10px}
 .card-body p{color:#cdd7e3}
 .ref{font-size:.85rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px;margin-top:12px}
 
-.formula{font-size:clamp(.78rem,1.9vw,1.2rem);text-align:center;background:var(--bg);
-  border:1px solid var(--line);border-radius:14px;padding:18px 14px;margin:0 0 30px;font-weight:600;color:#fff;
-  white-space:nowrap;overflow-x:auto}
+.formula{font-size:clamp(.74rem,1.55vw,.98rem);text-align:center;background:var(--bg);
+  border:1px solid var(--line);border-radius:14px;padding:16px 14px;margin:0 0 30px;font-weight:600;color:#fff;
+  white-space:normal;line-height:1.7;word-break:keep-all}
 .formula sub{font-size:.62em;color:var(--accent)}
 .finalfig{margin:0 0 28px}
 .finalfig img{width:100%;border-radius:12px;background:#fff;border:1px solid var(--line)}
@@ -244,7 +244,7 @@ footer{padding:40px 24px;text-align:center;color:var(--muted);border-top:1px sol
   border-radius:8px;padding:11px 13px}
 .sidenote b{color:var(--accent)}
 @media(max-width:1280px){
-  .sidenote{position:static;left:auto;width:auto;margin:12px 0 4px}
+  .sidenote{position:static;left:auto;width:auto;margin:16px 0}
 }
 
 /* 차트 이미지 라이트박스(클릭 시 크게) */
