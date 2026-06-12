@@ -27,7 +27,7 @@
 <a data-en="Conclusion" href="#s-conclusion">결론</a>
 <a data-en="Data" href="#s-data">데이터</a>
 <a data-en="References" href="#s-ai">참고문헌</a>
-<button data-en="한국어" id="langtoggle" style="background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:4px 11px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;margin-left:8px" type="button">EN</button>
+<button data-en="KO" id="langtoggle" style="background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:4px 11px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;margin-left:8px" type="button">EN</button>
 </div>
 </nav>
 <!-- HERO -->
@@ -98,7 +98,7 @@
        다섯 항목을 선정하였다. 송전망·도로·토지이용·주민수용성 같은 사회·경제 기준은 전 세계 233기를 공개데이터로
        일관되게 계산하기 어려워 제외하였다. 아래는 이 다섯 항목을 각각 어떻게 0~100점으로 채점했는지다.</p>
 <div class="card">
-<img alt="지진 점수 곡선" src="img/seismic_score_curve.png"/>
+<img alt="지진 점수 곡선" data-en-alt="Seismic score curve" src="img/seismic_score_curve.png"/>
 <div class="card-body">
 <h3 data-en="① Earthquake — The further from the fault, the safer it is">① 지진 — 단층에서 멀수록 안전하다</h3>
 <p data-en="The greatest natural disaster threatening nuclear power plants is the earthquake. The further away from an active fault (a geologically living fault that can still move) or plate boundary, the faster the vibration the ground experiences weakens. Accordingly, 0 points are assigned within 8 km of a fault and 100 points beyond 320 km, and the range in between is connected by a curve according to the principle that seismic energy attenuates inversely proportional to the square of the distance (body-wave geometric spreading — the phenomenon where seismic waves spread out in all directions and weaken with distance).">원전을 위협하는 가장 큰 자연재해는 지진이다. 활성 단층(현재도 움직일 수 있는, 지질학적으로 살아 있는 단층)이나
@@ -108,7 +108,7 @@
 </div>
 </div>
 <div class="card">
-<img alt="수원 점수 곡선" src="img/water_score_curve.png"/>
+<img alt="수원 점수 곡선" data-en-alt="Water source score curve" src="img/water_score_curve.png"/>
 <div class="card-body">
 <h3 data-en="② Water source — The closer the cooling water, the better">② 수원 — 냉각수는 가까울수록 유리하다</h3>
 <p data-en="A reactor requires a continuous supply of cooling water. Being close to a river, lake, or sea is advantageous, but as the intake pipe lengthens, the energy lost to friction increases in proportion to distance. So the waterside (0 km) scores 100 and beyond 20 km scores 0, and because friction loss occurs linearly in proportion to pipe length, the range in between decreases in a straight line.">원자로는 지속적인 냉각수 공급을 필요로 한다. 강·호수·바다에 가까울수록 유리하나, 도수관이 길어질수록 마찰로
@@ -117,7 +117,7 @@
 </div>
 </div>
 <div class="card">
-<img alt="인구 점수 곡선" src="img/population_score_curve.png"/>
+<img alt="인구 점수 곡선" data-en-alt="Population score curve" src="img/population_score_curve.png"/>
 <div class="card-body">
 <h3 data-en="③ Population — Not too close, not too far">③ 인구 — 너무 가깝지도, 너무 멀지도 않게</h3>
 <p data-en="If it is too close to the population, the risk in the event of an accident is high; if it is too far, transmission losses increase. So within a 16 km radius of the Emergency Planning Zone (EPZ) — the impact zone in the event of a radioactive leak — scores 0, reaching 100 at 32 km (the reference distance for population-density assessment), then gradually decreasing again farther out. The rising curve over the 16–32 km section follows a Gaussian dispersion model in which atmospheric radioactivity dilutes inversely proportional to the square of the distance.">인구에 지나치게 가까우면 사고 시 위험이 크고, 지나치게 멀면 송전 손실이 증가한다. 이에 방사능 누출 시
@@ -127,7 +127,7 @@
 </div>
 </div>
 <div class="card">
-<img alt="홍수 점수 곡선" src="img/flood_score_curve.png"/>
+<img alt="홍수 점수 곡선" data-en-alt="Flood score curve" src="img/flood_score_curve.png"/>
 <div class="card-body">
 <h3 data-en="④ Floods and Tsunamis — Lessons from Fukushima">④ 홍수·해일 — 후쿠시마의 교훈</h3>
 <p data-en="Being close to water is not enough. As Fukushima showed in 2011, low-elevation coastal lowlands are directly exposed to flooding and tsunamis. So a higher elevation earns a safer score, dropping sharply near sea level. Coupled with the water-source score (②), this criterion makes a location that is 'close to water but not excessively low' optimal.">물에 가깝다는 사실만으로는 충분하지 않다. 2011년 후쿠시마가 보여주듯, 해발이 낮은 해안 저지대는 침수와
@@ -136,7 +136,7 @@
 </div>
 </div>
 <div class="card">
-<img alt="화산 점수 곡선" src="img/volcano_score_curve.png"/>
+<img alt="화산 점수 곡선" data-en-alt="Volcano score curve" src="img/volcano_score_curve.png"/>
 <div class="card-body">
 <h3 data-en="⑤ Volcano — Out of eruption range">⑤ 화산 — 분화의 사정거리 밖으로</h3>
 <p data-en="Active volcanoes cannot be overlooked either. Pyroclastic flows (high-temperature volcanic gas and rock fragments flowing rapidly) and lahars (debris flows where volcanic ash mixes with water) extend tens of kilometers, while volcanic ash extends hundreds of kilometers. So if the nearest (Holocene) volcano is within 10 km it scores 0, and 100 if it is 160 km or more.">활화산 역시 간과할 수 없다. <b>화쇄류</b>(고온의 화산 가스·암석 조각이 빠르게 흘러내리는 분출물)와
@@ -198,7 +198,7 @@
 <div class="map" id="map-context"></div>
 <div class="yr-ctrl" id="yr-ctrl">
 <div class="yr-ctrl-row">
-<button class="yr-play" id="yr-play" title="자동 재생">▶</button>
+<button class="yr-play" id="yr-play" title="자동 재생" data-en-title="Auto play">▶</button>
 <span class="yr-val" id="yr-val">2025</span>
 <input id="yr-slider" max="2025" min="1956" step="1" type="range" value="2025"/>
 <span class="yr-info" id="yr-info"></span>
@@ -306,7 +306,7 @@
        체계적으로 어긋나 있었고, 어긋남에는 분명한 방향이 있었다. 다음 다섯 가지 증거가 그 방향을 가리킨다.</p>
 <!-- ① 점수대 × 정치체제 -->
 <div class="card">
-<img alt="점수대별 정치체제" src="img/extra_score_regime.png"/>
+<img alt="점수대별 정치체제" data-en-alt="Political regime by score band" src="img/extra_score_regime.png"/>
 <div class="card-body">
 <h3 data-en="① The lower the siting score, the more authoritarian the builder">① 점수가 낮은 입지일수록 권위주의가 건설하였다</h3>
 <p data-en="When the suitability scores are divided into bands and the political-system composition is viewed, the slope is distinct. The lowest band (20–40 points) is 57% built by closed autocracies, while the highest band (80–100 points) is 71% built by liberal democracies. Authoritarianism clusters in dangerous areas, democracy in safe areas.">적합도 점수를 구간으로 나눠 정치체제 구성을 보면 기울기가 뚜렷하다. 가장 낮은 구간(20–40점)은
@@ -319,7 +319,7 @@
 </div>
 <!-- ② 사고와 점수 -->
 <div class="card">
-<img alt="원전 사고 분석" src="img/extra_accidents.png"/>
+<img alt="원전 사고 분석" data-en-alt="Nuclear accident analysis" src="img/extra_accidents.png"/>
 <div class="card-body">
 <h3 data-en="② Accidents were more frequent at lower-scoring sites">② 사고는 점수가 낮은 입지에서 더 빈번하였다</h3>
 <p data-en="The average suitability (66.6 points) of plants with major accidents is lower than the overall average (71.6 points). Connecting this with finding ① completes the logic — authoritarianism built in low-scoring positions, and more accidents occurred at those low-scoring positions.">주요 사고 발생 원전의 평균 적합도(<b>66.6점</b>)는 전체 평균(<b>71.6점</b>)보다 낮다.
@@ -330,7 +330,7 @@
 </div>
 <!-- ③ 체제별 인구거리 박스플롯 -->
 <div class="card">
-<img alt="정치체제별 인구거리" src="img/politics_box.png"/>
+<img alt="정치체제별 인구거리" data-en-alt="Population distance by political regime" src="img/politics_box.png"/>
 <div class="card-body">
 <h3 data-en="③ By distance too, authoritarianism built close to people">③ 거리로 봐도 권위주의는 사람 가까이 지었다</h3>
 <p data-en="Viewing the distance to the population center at construction as a box plot by regime, the closed-autocracy median of 11.5 km is below the red EPZ (16 km) line. This means more than half of the plants were within the radiation impact zone. Conversely, liberal democracies built farther away at 23 km, and this difference is statistically clear.">건설 당시 인구중심까지의 거리를 체제별로 상자그림으로 보면, <b>폐쇄적 독재 중앙값 11.5km</b>는
@@ -340,7 +340,7 @@
 </div>
 <!-- ④ 사고 이후 거리 안 바뀜 -->
 <div class="card">
-<img alt="사건별 이후 입지 거리" src="img/event_prepost.png"/>
+<img alt="사건별 이후 입지 거리" data-en-alt="Post-event siting distance by accident" src="img/event_prepost.png"/>
 <div class="card-body">
 <h3 data-en="④ Even after accidents, the siting pattern did not change">④ 사고 이후에도 입지 패턴은 바뀌지 않았다</h3>
 <p data-en="So did accidents change the siting method? No. Even comparing the decade after each of TMI, Chernobyl, and Fukushima, there is no trace of plants moving farther from populations. After Fukushima they actually moved closer, from 19 to 11 km. What changed siting was not the accidents but that Western democracies stopped building and Asian authoritarian and high-density nations filled the void.">그렇다면 사고가 입지 방식을 바꿨는가? 그렇지 않았다. TMI·체르노빌·후쿠시마 이후 각각
@@ -352,7 +352,7 @@
 </div>
 <!-- ⑤ 체제별 사고 전후 점수 변화 -->
 <div class="card">
-<img alt="체제별 사고 전후 점수 변화" src="img/event_regime_score.png"/>
+<img alt="체제별 사고 전후 점수 변화" data-en-alt="Score change before/after accidents by regime" src="img/event_regime_score.png"/>
 <div class="card-body">
 <h3 data-en="⑤ Even split by regime, accidents did not improve siting">⑤ 체제별로 봐도, 사고는 입지를 개선하지 못했다</h3>
 <p data-en="I split the final suitability score for ±10 years before and after each accident by regime. Neither authoritarian nor democratic states saw their scores rise consistently after an accident. Rather, authoritarianism stayed in the lower score range (median 57–75), and the gap with democracy (71–78) was maintained regardless of the accident.">사고 전후 ±10년의 최종 적합도 점수를 <b>체제별로</b> 나눠 보았다. 권위주의·민주주의 어느 쪽도
@@ -481,7 +481,7 @@
 </section>
 <footer data-en="KAIST Introduction to Digital History · Digital History Project (20250367 Seo Seung-jae)">KAIST 디지털역사학입문 · Digital History Project (20250367 서승재)</footer>
 <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="js/app.js?v=26"></script>
+<script src="js/app.js?v=27"></script>
 <script>
 /* ---- KO/EN toggle (swap innerHTML of elements that have data-en) ---- */
 (function(){
@@ -493,6 +493,14 @@
     document.querySelectorAll('[data-en-ph]').forEach(function(el){   // 입력창 placeholder 전환
       if(el.dataset.koPh===undefined) el.dataset.koPh = el.getAttribute('placeholder')||'';
       el.setAttribute('placeholder', (lang==='en') ? el.dataset.enPh : el.dataset.koPh);
+    });
+    document.querySelectorAll('[data-en-alt]').forEach(function(el){   // 이미지 alt 전환
+      if(el.dataset.koAlt===undefined) el.dataset.koAlt = el.getAttribute('alt')||'';
+      el.setAttribute('alt', (lang==='en') ? el.dataset.enAlt : el.dataset.koAlt);
+    });
+    document.querySelectorAll('[data-en-title]').forEach(function(el){ // title 속성 전환
+      if(el.dataset.koTitle===undefined) el.dataset.koTitle = el.getAttribute('title')||'';
+      el.setAttribute('title', (lang==='en') ? el.dataset.enTitle : el.dataset.koTitle);
     });
     document.documentElement.lang = lang;
     try{ localStorage.setItem('site-lang', lang); }catch(e){}

@@ -78,7 +78,7 @@ function overlayGroup(file, opacity){
 function addPlantMarkers(group, plants, styleFn, onClick){
   plants.forEach(p => [p.lon, p.lon + 360].forEach(lon => {
     const mk = L.circleMarker([p.lat, lon], styleFn(p))
-      .bindTooltip(`${p.name} · ${p.final!=null?p.final.toFixed(0)+"점":(p.country||"")}`);
+      .bindTooltip(`${p.name} · ${p.final!=null?p.final.toFixed(0)+TR("점"," pts"):(p.country||"")}`);
     if (onClick) mk.on("click", () => onClick(p));
     mk.addTo(group);
   }));
@@ -110,7 +110,7 @@ async function init(){
     addPlantMarkers(timelineLayer, shown,
       () => ({radius:3, color:"#111", weight:0.6, fillColor:"#ffd400", fillOpacity:0.95}), null);
     document.getElementById("yr-val").textContent = year;
-    document.getElementById("yr-info").textContent = `${shown.length}기 표시`;
+    document.getElementById("yr-info").textContent = `${shown.length}${TR("기 표시"," shown")}`;
     // 인구 오버레이 교체
     if (document.getElementById("t-pop").checked){
       popLayerL.setUrl(popUrl(year));
@@ -239,6 +239,7 @@ function buildLegend(){
 window._reLang = function(){
   try { buildLegend(); } catch(e){}
   if (_lastPlant) { try { showDetail(_lastPlant); } catch(e){} }
+  if (window._reDataTable) { try { window._reDataTable(); } catch(e){} }
 };
 
 /* 지도 컨테이너가 보일 때 크기 재계산 (Leaflet 필수) */
@@ -255,36 +256,38 @@ function observeMapResize(){
 
 init().catch(err=>{
   console.error(err);
-  document.getElementById("plant-detail").innerHTML="<p class='ph'>데이터 로드 실패 — 로컬 서버(python -m http.server)로 열어주세요.</p>";
+  document.getElementById("plant-detail").innerHTML="<p class='ph'>"+TR("데이터 로드 실패 — 로컬 서버(python -m http.server)로 열어주세요.","Failed to load data — please open via a local server (python -m http.server).")+"</p>";
 });
 
 /* ---- 데이터 테이블 ---- */
 (function dataTable(){
   const COLS = [
-    {k:"name",      label:"원전명"},
-    {k:"country",   label:"국가"},
-    {k:"year",      label:"건설연도"},
-    {k:"lat",       label:"위도"},
-    {k:"lon",       label:"경도"},
-    {k:"seismic",   label:"지진점수",    score:true},
-    {k:"d_fault_km",label:"단층거리(km)"},
-    {k:"water",     label:"수원점수",    score:true},
-    {k:"d_water_km",label:"수원거리(km)"},
-    {k:"population",label:"인구점수",    score:true},
-    {k:"d_pop_km",  label:"인구거리(km)"},
-    {k:"flood",     label:"홍수점수",    score:true},
-    {k:"elev_m",    label:"고도(m)"},
-    {k:"volcano",   label:"화산점수",    score:true},
-    {k:"d_volcano_km",label:"화산거리(km)"},
-    {k:"regime_label",label:"정치체제"},
-    {k:"final",     label:"종합점수",    score:true},
+    {k:"name",      label:"원전명",        en:"Plant name"},
+    {k:"country",   label:"국가",          en:"Country"},
+    {k:"year",      label:"건설연도",      en:"Construction year"},
+    {k:"lat",       label:"위도",          en:"Latitude"},
+    {k:"lon",       label:"경도",          en:"Longitude"},
+    {k:"seismic",   label:"지진점수",      en:"Earthquake score",          score:true},
+    {k:"d_fault_km",label:"단층거리(km)",  en:"Fault distance (km)"},
+    {k:"water",     label:"수원점수",      en:"Water source score",        score:true},
+    {k:"d_water_km",label:"수원거리(km)",  en:"Water source distance (km)"},
+    {k:"population",label:"인구점수",      en:"Population score",           score:true},
+    {k:"d_pop_km",  label:"인구거리(km)",  en:"Population distance (km)"},
+    {k:"flood",     label:"홍수점수",      en:"Flood score",               score:true},
+    {k:"elev_m",    label:"고도(m)",       en:"Altitude (m)"},
+    {k:"volcano",   label:"화산점수",      en:"Volcano score",             score:true},
+    {k:"d_volcano_km",label:"화산거리(km)",en:"Volcano distance (km)"},
+    {k:"regime_label",label:"정치체제",    en:"Political system"},
+    {k:"final",     label:"종합점수",      en:"Overall score",             score:true},
   ];
   const RL = {0:"폐쇄독재",1:"선거독재",2:"선거민주",3:"자유민주"};
+  const RL_EN = {0:"Closed autocracy",1:"Electoral autocracy",2:"Electoral democracy",3:"Liberal democracy"};
+  const clab = c => TR(c.label, c.en);   // 현재 언어에 맞는 컬럼 라벨
   let _plants=[], _sorted=[], _sortCol="final", _sortDir=-1, _hidden=new Set();
 
   function fmt(v,k){
     if(v===null||v===undefined) return "—";
-    if(k==="regime_label") return RL[Math.round(v)]||v||"—";
+    if(k==="regime_label") return TR(RL[Math.round(v)], RL_EN[Math.round(v)])||v||"—";
     if(typeof v==="number") return (Number.isInteger(v)&&!k.includes("km")&&k!=="lat"&&k!=="lon")?v:parseFloat(v).toFixed(1);
     return v;
   }
@@ -296,9 +299,9 @@ init().catch(err=>{
       if(q&&!(p.name||"").toLowerCase().includes(q)&&!(p.country||"").toLowerCase().includes(q)) return false;
       return true;
     });
-    document.getElementById("dt-count").textContent=`${rows.length} / ${_plants.length}기`;
+    document.getElementById("dt-count").textContent=`${rows.length} / ${_plants.length}${TR("기"," units")}`;
     const tbody=document.getElementById("dt-body");
-    if(!rows.length){tbody.innerHTML=`<tr><td colspan="${COLS.length}" style="text-align:center;padding:18px;color:#9aa7b8">검색 결과 없음</td></tr>`;return;}
+    if(!rows.length){tbody.innerHTML=`<tr><td colspan="${COLS.length}" style="text-align:center;padding:18px;color:#9aa7b8">${TR("검색 결과 없음","No results")}</td></tr>`;return;}
     tbody.innerHTML=rows.map(p=>`<tr>${COLS.map(c=>{
       const v=p[c.k];
       const cls=(c.k==="regime_label"?regimeClass(p):"")+(c.score?" score":"");
@@ -326,7 +329,7 @@ init().catch(err=>{
       if(q&&!(p.name||"").toLowerCase().includes(q)&&!(p.country||"").toLowerCase().includes(q)) return false;
       return true;
     });
-    const header=COLS.map(c=>c.label).join(",");
+    const header=COLS.map(c=>clab(c)).join(",");
     const body=rows.map(p=>COLS.map(c=>{
       const v=fmt(p[c.k],c.k); return `"${String(v).replace(/"/g,'""')}"`;
     }).join(",")).join("\n");
@@ -340,16 +343,21 @@ init().catch(err=>{
       th.style.display=_hidden.has(th.dataset.col)?"none":"";
     });
   }
-  function buildColMenu(){
+  function fillColMenu(){
     const menu=document.getElementById("dt-colmenu"); if(!menu) return;
-    menu.innerHTML=COLS.map(c=>`<label><input type="checkbox" data-col="${c.k}" checked> ${c.label}</label>`).join("");
+    menu.innerHTML=COLS.map(c=>`<label><input type="checkbox" data-col="${c.k}" ${_hidden.has(c.k)?"":"checked"}> ${clab(c)}</label>`).join("");
     menu.querySelectorAll("input").forEach(inp=>inp.addEventListener("change",()=>{
       inp.checked?_hidden.delete(inp.dataset.col):_hidden.add(inp.dataset.col);
       applyColVis(); render();
     }));
-    const btn=document.getElementById("dt-cols");
-    if(btn) btn.addEventListener("click",()=>{ menu.hidden=!menu.hidden; });
   }
+  function buildColMenu(){
+    fillColMenu();
+    const btn=document.getElementById("dt-cols");
+    if(btn) btn.addEventListener("click",()=>{ const m=document.getElementById("dt-colmenu"); if(m) m.hidden=!m.hidden; });
+  }
+  // 언어 전환 시 테이블·메뉴 재렌더(헤더 th는 data-en 토글이 처리)
+  window._reDataTable = function(){ try{ fillColMenu(); render(); }catch(e){} };
 
   // 초기화는 plants 로드 후 호출
   window._initDataTable = function(plants){
@@ -388,7 +396,7 @@ addEventListener("resize", placeSidenotes);
 (function lightbox(){
   const lb = document.createElement("div");
   lb.id = "lightbox";
-  lb.innerHTML = '<span class="x">×</span><img alt="확대 이미지">';
+  lb.innerHTML = '<span class="x">×</span><img alt="Enlarged image">';
   document.body.appendChild(lb);
   const close = () => lb.classList.remove("open");
   lb.addEventListener("click", close);
